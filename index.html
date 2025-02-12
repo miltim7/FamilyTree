@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Binary Tree Structure</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/script.js"></script>
+</head>
+<body>
+  <!-- Кнопка добавления ребенка -->
+  <button id="add-child-btn">Добавить ребенка</button>
+
+  <div id="tree-container-wrapper">
+    <div id="tree-container">
+      <div class="tree" id="tree-root"></div>
+    </div>
+  </div>
+
+  <!-- Модальное окно с полной информацией карточки -->
+  <div class="modal" id="person-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-modal">&times;</span>
+      <div class="modal-header">
+        <img src="" alt="Фото" id="modal-photo">
+        <h2 id="modal-name"></h2>
+      </div>
+      <div class="modal-body">
+        <div class="info-row"><strong>Пол:</strong> <span id="modal-gender"></span></div>
+        <div class="info-row"><strong>Годы жизни:</strong> <span id="modal-years"></span></div>
+        <div class="info-row"><strong>Профессия:</strong> <span id="modal-profession"></span></div>
+        <div class="info-row"><strong>Место рождения:</strong> <span id="modal-birthPlace"></span></div>
+        <div class="info-row"><strong>Биография:</strong> <span id="modal-bio"></span></div>
+        <!-- Добавлены id для меток родителей -->
+        <div class="info-row"><strong id="modal-father-label">Отец:</strong> <span id="modal-father"></span></div>
+        <div class="info-row"><strong id="modal-mother-label">Мать:</strong> <span id="modal-mother"></span></div>
+        <div class="info-row"><strong>Дети:</strong> <span id="modal-children"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Модальное окно для добавления ребенка -->
+  <div class="modal" id="add-child-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-add-modal">&times;</span>
+      <h2>Добавить ребенка</h2>
+      <form id="add-child-form">
+        <div class="form-row">
+          <label>ФИО:</label>
+          <input type="text" id="new-name" required>
+        </div>
+        <div class="form-row">
+          <label>Годы жизни:</label>
+          <input type="text" id="new-years" required>
+        </div>
+        <div class="form-row">
+          <label>Пол:</label>
+          <select id="new-gender">
+            <option value="Мужской">Мужской</option>
+            <option value="Женский">Женский</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Профессия:</label>
+          <input type="text" id="new-profession" required>
+        </div>
+        <div class="form-row">
+          <label>Место рождения:</label>
+          <input type="text" id="new-birthPlace" required>
+        </div>
+        <div class="form-row">
+          <label>Биография:</label>
+          <textarea id="new-bio" rows="3" required></textarea>
+        </div>
+        <div class="form-row">
+          <label>Фото:</label>
+          <input type="file" id="new-photo" accept="image/*">
+        </div>
+        <div class="form-row">
+          <button type="button" id="choose-parent-btn">Выбрать родителя</button>
+          <span id="selected-parent-text">Родитель не выбран</span>
+        </div>
+        <div class="form-row">
+          <button type="submit" id="submit-child-btn">Добавить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
