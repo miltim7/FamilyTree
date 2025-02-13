@@ -1,23 +1,109 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Binary Tree Structure</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script defer src="js/script.js"></script>
-</head>
-<body>
-  <!-- Кнопка добавления ребенка -->
-  <button id="add-child-btn">Добавить ребенка</button>
 
-  <div id="tree-container-wrapper">
-    <div id="tree-container">
-      <div class="tree" id="tree-root"></div>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/additional.css">
+
+  <script defer src="js/script.js"></script>
+  <script defer src="js/additional.js"></script>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <a class="logo" href="/">Шуховцевы-Шуховцевы</a>
+    <div class="links">
+      <a href="#container">Семейное древо</a>
+      <a href="#blog">Статьи</a>
+    </div>
+    <div class="contacts">
+      <p>По любым вопросам</p>
+      <img src="images/right-arrow.png">
+      <a href="https://vk.com/"><img src="images/vk.png" alt="VK"></a>
+      <a
+        href="https://api.whatsapp.com/send/?phone=79000880989&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%9F%D0%B8%D1%88%D1%83+%D0%92%D0%B0%D0%BC+%D1%81+%D1%81%D0%B0%D0%B9%D1%82%D0%B0+%D0%BF%D0%BE+%D1%80%D0%BE%D0%B4%D0%BE%D1%81%D0%BB%D0%BE%D0%B2%D0%BD%D0%BE%D0%B9+%D0%A8%D1%83%D1%85%D0%BE%D0%B2%D1%86%D0%B5%D0%B2%D1%8B%D1%85.&type=phone_number&app_absent=0"><img
+          src="images/whatsapp.png" alt="WhatsApp"></a>
+    </div>
+
+    <div class="burger" style="display: none;">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="close" style="display: none;">
+      <img src="images/close.png">
+    </div>
+  </header>
+
+  <div class="header-mobile">
+    <a class="logo" href="/">Шуховцевы-Шуховцевы</a>
+    <a href="#container">Семейное древо</a>
+    <a href="#blog">Статьи</a>
+    <div>
+      <p>По любым вопросам</p>
+      <img src="images/right-arrow.png">
+      <a href="https://vk.com/"><img src="images/vk.png" alt="VK"></a>
+      <a
+        href="https://api.whatsapp.com/send/?phone=79000880989&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%9F%D0%B8%D1%88%D1%83+%D0%92%D0%B0%D0%BC+%D1%81+%D1%81%D0%B0%D0%B9%D1%82%D0%B0+%D0%BF%D0%BE+%D1%80%D0%BE%D0%B4%D0%BE%D1%81%D0%BB%D0%BE%D0%B2%D0%BD%D0%BE%D0%B9+%D0%A8%D1%83%D1%85%D0%BE%D0%B2%D1%86%D0%B5%D0%B2%D1%8B%D1%85.&type=phone_number&app_absent=0"><img
+          src="images/whatsapp.png" alt="WhatsApp"></a>
     </div>
   </div>
 
-  <!-- Модальное окно с полной информацией карточки -->
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Добро пожаловать на сайт, посвященный родословной семьи Шуховцевых!</h1>
+    <p>Здесь вы сможете узнать о богатой истории и наследии семьи, исследовать генеалогическое древо и прочитать статьи
+      о предках.
+      На сайте несколько разделов: генеалогическое древо с биографией родственников, статьи и исследования, поиск по
+      личностям.
+      История семьи Шуховцевых — это наша общая память!</p>
+  </section>
+
+  <!-- Container (Древо) -->
+  <section id="container" class="container-section">
+    <div class="container-buttons">
+      <button id="add-child-btn">Добавить ребенка</button>
+    </div>
+    <div id="tree-container-wrapper">
+      <div id="tree-container">
+        <div class="tree" id="tree-root"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section id="blog" class="blog-section">
+    <div class="blog-card">
+      <img src="images/blog1.jpg" alt="Блог 1">
+      <div class="blog-date">01.01.2023</div>
+      <div class="blog-title">Название блога 1</div>
+      <div class="blog-desc">Краткое описание блога 1. Lorem ipsum dolor sit amet.</div>
+      <a href="#" class="read-more">Читать больше <img src="images/right-arrow.png"></a>
+    </div>
+    <div class="blog-card">
+      <img src="images/blog1.jpg" alt="Блог 2">
+      <div class="blog-date">05.01.2023</div>
+      <div class="blog-title">Название блога 2</div>
+      <div class="blog-desc">Краткое описание блога 2. Lorem ipsum dolor sit amet.</div>
+      <a href="#" class="read-more">Читать больше <img src="images/right-arrow.png"></a>
+    </div>
+    <div class="blog-card">
+      <img src="images/blog1.jpg" alt="Блог 3">
+      <div class="blog-date">10.01.2023</div>
+      <div class="blog-title">Название блога 3</div>
+      <div class="blog-desc">Краткое описание блога 3. Lorem ipsum dolor sit amet.</div>
+      <a href="#" class="read-more">Читать больше <img src="images/right-arrow.png"></a>
+    </div>
+  </section>
+
+  <!-- Модальное окно с детальной информацией карточки -->
   <div class="modal" id="person-modal">
     <div class="modal-content">
       <span class="close-modal" id="close-modal">&times;</span>
@@ -31,7 +117,6 @@
         <div class="info-row"><strong>Профессия:</strong> <span id="modal-profession"></span></div>
         <div class="info-row"><strong>Место рождения:</strong> <span id="modal-birthPlace"></span></div>
         <div class="info-row"><strong>Биография:</strong> <span id="modal-bio"></span></div>
-        <!-- Добавлены id для меток родителей -->
         <div class="info-row"><strong id="modal-father-label">Отец:</strong> <span id="modal-father"></span></div>
         <div class="info-row"><strong id="modal-mother-label">Мать:</strong> <span id="modal-mother"></span></div>
         <div class="info-row"><strong>Дети:</strong> <span id="modal-children"></span></div>
@@ -87,4 +172,5 @@
     </div>
   </div>
 </body>
+
 </html>

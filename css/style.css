@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
 * {
   margin: 0;
   padding: 0;
@@ -8,13 +6,11 @@
 
 body {
   height: 100vh;
-  font-family: 'Poppins', sans-serif;
-  background: #f0f2f5;
+  font-family: 'Montserrat', sans-serif;
+  background: #151515;
   overflow: hidden;
   position: relative;
 }
-
-
 
 img {
   -webkit-user-drag: none;
@@ -22,15 +18,15 @@ img {
 }
 
 #tree-container-wrapper {
+  width: 1000%;
+  height: 100vh;
+  overflow: hidden;
+  cursor: grab;
+  position: relative;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  width: 1000%;
-  height: 1000%;
-  overflow: hidden;
-  cursor: grab;
-  position: relative;
 }
 
 #tree-container {
@@ -43,6 +39,9 @@ img {
 
 .tree {
   text-align: center;
+  /* border-style:solid;
+  border-color: #B8860B;
+  border-width: 1px; */
 }
 
 .tree ul {
@@ -66,7 +65,7 @@ img {
   position: absolute;
   top: 0;
   right: 50%;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #B8860B;
   width: 51%;
   height: 30px;
 }
@@ -74,7 +73,7 @@ img {
 .tree li::after {
   right: auto;
   left: 50%;
-  border-left: 1px solid #ccc;
+  border-left: 1px solid #B8860B;
 }
 
 .tree li:only-child::after,
@@ -92,7 +91,7 @@ img {
 }
 
 .tree li:last-child::before {
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #B8860B;
   border-radius: 0 5px 0 0;
 }
 
@@ -105,21 +104,22 @@ img {
   position: absolute;
   top: 0;
   left: 50%;
-  border-left: 1px solid #ccc;
+  border-left: 1px solid #B8860B;
   width: 0;
   height: 20px;
 }
 
 /* Карточка (показывает Фото, ФИО и Годы жизни) */
 .tree li a {
-  border: 1px solid #ccc;
+  border: 1px solid #B8860B;
   padding: 10px;
   display: inline-block;
   border-radius: 5px;
   text-decoration: none;
   transition: 0.5s;
-  width: 150px;
-  background: #fff;
+  width: 350px;
+  background: transparent;
+  color: #fff;
 }
 
 .tree li a img {
@@ -142,7 +142,7 @@ img {
 }
 
 .tree li a:hover {
-  background: #c8e4f8;
+  background: #252525;
 }
 
 /* Модальное окно */
@@ -216,43 +216,6 @@ img {
   line-height: 1.5;
 }
 
-.info-row {
-  margin-bottom: 10px;
-}
-
-.info-row strong {
-  display: inline-block;
-  width: 130px;
-  color: #333;
-}
-
-@media (max-width: 480px) {
-  .modal-header {
-    flex-direction: column;
-    text-align: center;
-  }
-  .modal-header img {
-    margin: 0 0 10px;
-  }
-  .info-row strong {
-    width: 100px;
-  }
-}
-
-#add-child-btn {
-  padding: 8px 20px;
-  margin: 20px;
-  border-radius: 4px;
-  border: 1px solid #000;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-#add-child-btn:hover {
-  background-color: #000;
-  color: #fff;
-  transition: 0.3s ease;
-}
 
 #add-child-form .form-row {
   margin-bottom: 15px;
@@ -283,7 +246,25 @@ img {
   cursor: pointer;
 }
 
-#selected-parent-text {
-  margin-left: 10px;
-  font-style: italic;
+.info-row {
+  margin-bottom: 10px;
+}
+
+.info-row strong {
+  display: inline-block;
+  width: 130px;
+  color: #333;
+}
+
+@media (max-width: 480px) {
+  .modal-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  .modal-header img {
+    margin: 0 0 10px;
+  }
+  .info-row strong {
+    width: 100px;
+  }
 }

@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
   treeRoot.innerHTML = generateTree(treeData);
 
   // Главный обработчик кликов по дереву.
-  // Если режим выбора родителя включен, открытие детального окна не происходит.
+  // Если режим выбора родителя включен, выбирается родитель (детальное окно не открывается).
   treeRoot.addEventListener('click', function (e) {
     const card = e.target.closest('.person-card');
     if (!card) return;
@@ -262,7 +262,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('modal-profession').textContent = person.profession;
     document.getElementById('modal-birthPlace').textContent = person.birthPlace;
     document.getElementById('modal-bio').textContent = person.bio;
-    // Если при добавлении установлен parentRole, меняем метки
     if (person.parentRole === "Папа") {
       document.getElementById('modal-father-label').textContent = "Папа:";
     } else {
@@ -348,26 +347,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const chooseParentBtn = document.getElementById('choose-parent-btn');
   const selectedParentText = document.getElementById('selected-parent-text');
 
-  // Открываем форму добавления ребенка
   addChildBtn.addEventListener('click', function () {
     addChildModal.classList.add('active');
   });
-  // Закрытие формы
   closeAddModal.addEventListener('click', function () {
     addChildModal.classList.remove('active');
   });
-  // При нажатии на "Выбрать родителя" включаем режим выбора
   chooseParentBtn.addEventListener('click', function () {
     addChildModal.classList.remove('active');
     selectedParentText.textContent = "Выберите родителя...";
     isSelectingParent = true;
   });
-  // Обработка отправки формы добавления ребенка
   addChildForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    // Собираем данные формы
     const newChild = {
-      img: "", // фото зададим ниже
+      img: "",
       name: document.getElementById('new-name').value,
       gender: document.getElementById('new-gender').value,
       years: document.getElementById('new-years').value,
@@ -378,14 +372,12 @@ document.addEventListener("DOMContentLoaded", function () {
       mother: "",
       children: []
     };
-    // Обработка фото: если выбран файл, создаем URL, иначе дефолтное фото по полу
     const photoInput = document.getElementById('new-photo');
     if (photoInput.files && photoInput.files[0]) {
       newChild.img = URL.createObjectURL(photoInput.files[0]);
     } else {
       newChild.img = newChild.gender === "Мужской" ? "images/default_male.jpg" : "images/default_female.jpg";
     }
-    // Если выбран родитель, добавляем нового ребенка в его children
     if (selectedParentId && personById[selectedParentId]) {
       const parent = personById[selectedParentId];
       if (parent.gender === "Мужской") {
@@ -398,15 +390,12 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!parent.children) parent.children = [];
       parent.children.push(newChild);
     } else {
-      // Если родитель не выбран, добавляем в корень дерева
       treeData.push(newChild);
     }
-    // Сбрасываем форму и выбранного родителя
     addChildForm.reset();
     selectedParentId = null;
     selectedParentText.textContent = "Родитель не выбран";
     addChildModal.classList.remove('active');
-    // Перегенерируем дерево
     personIdCounter = 0;
     Object.keys(personById).forEach(key => delete personById[key]);
     treeRoot.innerHTML = generateTree(treeData);
