@@ -298,3 +298,46 @@ header .burger.hide {
   gap: 5px;
   transition: 1s ease;
 }
+
+.navigation-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1100;
+}
+.navigation-controls .nav-btn,
+.navigation-controls .zoom-btn {
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background: #4caf50;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.navigation-controls .nav-btn:hover,
+.navigation-controls .zoom-btn:hover {
+  background: #388e3c;
+}
+
+/* Расположение стрелок: верх, ниж, а горизонтальные в одной строке */
+.navigation-controls .up {
+  align-self: center;
+}
+.navigation-controls .down {
+  align-self: center;
+}
+.navigation-controls .horizontal-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+.navigation-controls .zoom-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}

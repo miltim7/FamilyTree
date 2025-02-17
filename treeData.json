@@ -1,0 +1,198 @@
+[
+  {
+    "img": "images/1.jpg",
+    "name": "Child",
+    "gender": "Мужской",
+    "years": "1900-1290",
+    "profession": "Фермер",
+    "birthPlace": "Деревня А",
+    "bio": "Трудолюбивый человек с богатой историей.",
+    "father": "Неизвестен",
+    "mother": "Неизвестна",
+    "children": [
+      {
+        "img": "images/2.jpg",
+        "name": "Grand Child",
+        "gender": "Женский",
+        "years": "1900-1290",
+        "profession": "Учитель",
+        "birthPlace": "Город Б",
+        "bio": "Заботливая учительница, посвятившая жизнь обучению детей.",
+        "father": "Child",
+        "mother": "Жена Child",
+        "children": [
+          {
+            "img": "images/3.jpg",
+            "name": "Great Grand Child",
+            "gender": "Мужской",
+            "years": "1900-1290",
+            "profession": "Инженер",
+            "birthPlace": "Город В",
+            "bio": "Инновационный инженер с множеством идей.",
+            "father": "Grand Child",
+            "mother": "Жена Grand Child",
+            "children": []
+          },
+          {
+            "img": "images/4.jpg",
+            "name": "Great Grand Child",
+            "gender": "Женский",
+            "years": "1900-1290",
+            "profession": "Доктор",
+            "birthPlace": "Город Г",
+            "bio": "Сострадательная врач, помогающая людям.",
+            "father": "Grand Child",
+            "mother": "Жена Grand Child",
+            "children": []
+          },
+          {
+            "img": "images/4.jpg",
+            "name": "Great Grand Child",
+            "gender": "Мужской",
+            "years": "1900-1290",
+            "profession": "Художник",
+            "birthPlace": "Город Д",
+            "bio": "Творческий художник с яркой фантазией.",
+            "father": "Grand Child",
+            "mother": "Жена Grand Child",
+            "children": []
+          }
+        ]
+      },
+      {
+        "img": "images/2.jpg",
+        "name": "Grand Child",
+        "gender": "Мужской",
+        "years": "1900-1290",
+        "profession": "Механик",
+        "birthPlace": "Город Е",
+        "bio": "Опытный механик, знающий все тонкости техники.",
+        "father": "Child",
+        "mother": "Жена Child",
+        "children": [
+          {
+            "img": "images/3.jpg",
+            "name": "Great Grand Child",
+            "gender": "Женский",
+            "years": "1900-1290",
+            "profession": "Медсестра",
+            "birthPlace": "Город Ж",
+            "bio": "Добрая медсестра, всегда готовая помочь.",
+            "father": "Grand Child",
+            "mother": "Жена Grand Child",
+            "children": []
+          },
+          {
+            "img": "images/4.jpg",
+            "name": "Great Grand Child",
+            "gender": "Мужской",
+            "years": "1900-1290",
+            "profession": "Юрист",
+            "birthPlace": "Город З",
+            "bio": "Остроумный юрист с большим опытом.",
+            "father": "Grand Child",
+            "mother": "Жена Grand Child",
+            "children": []
+          },
+          {
+            "img": "images/4.jpg",
+            "name": "Great Grand Child",
+            "gender": "Женский",
+            "years": "1900-1290",
+            "profession": "Повар",
+            "birthPlace": "Город И",
+            "bio": "Творческий повар, радующий гурманов.",
+            "father": "Grand Child",
+            "mother": "Жена Grand Child",
+            "children": []
+          }
+        ]
+      },
+      {
+        "img": "images/5.jpg",
+        "name": "Grand Child",
+        "gender": "Женский",
+        "years": "1900-1290",
+        "profession": "Учёный",
+        "birthPlace": "Город К",
+        "bio": "Страстная учёная, всегда ищущая новые знания.",
+        "father": "Child",
+        "mother": "Жена Child",
+        "children": [
+          {
+            "img": "images/6.jpg",
+            "name": "Great Grand Child",
+            "gender": "Мужской",
+            "years": "1900-1290",
+            "profession": "Пилот",
+            "birthPlace": "Город Л",
+            "bio": "Отважный пилот, готовый к любым испытаниям.",
+            "father": "Grand Child",
+            "mother": "Жена Grand Child",
+            "children": []
+          },
+          {
+            "img": "images/7.jpg",
+            "name": "Great Grand Child",
+            "gender": "Женский",
+            "years": "1900-1290",
+            "profession": "Писатель",
+            "birthPlace": "Город М",
+            "bio": "Творческий писатель, любящий слова и ритмы.",
+            "father": "Grand Child",
+            "mother": "Жена Grand Child",
+            "children": []
+          },
+          {
+            "img": "images/8.jpg",
+            "name": "Great Grand Child",
+            "gender": "Мужской",
+            "years": "1900-1290",
+            "profession": "Музыкант",
+            "birthPlace": "Город Н",
+            "bio": "Талантливый музыкант, наполняющий мир звуками.",
+            "father": "Grand Child",
+            "mother": "Жена Grand Child",
+            "children": []
+          },
+          {
+            "img": "images/8.jpg",
+            "name": "Great Grand Child",
+            "gender": "Женский",
+            "years": "1900-1290",
+            "profession": "Танцовщица",
+            "birthPlace": "Город О",
+            "bio": "Выразительная танцовщица, владеющая искусством движения.",
+            "father": "Grand Child",
+            "mother": "Жена Grand Child",
+            "children": []
+          },
+          {
+            "img": "images/8.jpg",
+            "name": "Great Grand Child",
+            "gender": "Мужской",
+            "years": "1900-1290",
+            "profession": "Программист",
+            "birthPlace": "Город П",
+            "bio": "Опытный программист, создающий новые технологии.",
+            "father": "Grand Child",
+            "mother": "Жена Grand Child",
+            "children": []
+          }
+        ]
+      },
+      {
+        "img": "images/9.jpg",
+        "name": "Grand Child",
+        "gender": "Мужской",
+        "years": "1900-1290",
+        "profession": "Фермер",
+        "birthPlace": "Город Р",
+        "bio": "Преданный своему делу фермер, заботящийся о земле.",
+        "father": "Child",
+        "mother": "Жена Child",
+        "children": []
+      }
+    ]
+  }
+]

@@ -43,3 +43,14 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+// Функционал расширения контейнера
+document.addEventListener("DOMContentLoaded", function() {
+  const expandBtn = document.getElementById("expand-container-btn");
+  const treeWrapper = document.getElementById("tree-container-wrapper");
+  expandBtn.addEventListener("click", function(){
+    treeWrapper.classList.toggle("expanded");
+    expandBtn.textContent = treeWrapper.classList.contains("expanded") 
+      ? "Свернуть контейнер" 
+      : "Открыть контейнер полностью";
+  });
+});

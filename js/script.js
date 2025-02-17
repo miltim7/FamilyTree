@@ -6,212 +6,18 @@ document.addEventListener("DOMContentLoaded", function () {
   // Флаг режима выбора родителя
   let isSelectingParent = false;
   let selectedParentId = null;
+  let currentPersonId = null; // для редактирования/удаления
+  let isEditing = false; // режим редактирования
 
-  // Данные дерева с расширенными полями
-  const treeData = [
-    {
-      img: "images/1.jpg",
-      name: "Child",
-      gender: "Мужской",
-      years: "1900-1290",
-      profession: "Фермер",
-      birthPlace: "Деревня А",
-      bio: "Трудолюбивый человек с богатой историей.",
-      father: "Неизвестен",
-      mother: "Неизвестна",
-      children: [
-        {
-          img: "images/2.jpg",
-          name: "Grand Child",
-          gender: "Женский",
-          years: "1900-1290",
-          profession: "Учитель",
-          birthPlace: "Город Б",
-          bio: "Заботливая учительница, посвятившая жизнь обучению детей.",
-          father: "Child",
-          mother: "Жена Child",
-          children: [
-            {
-              img: "images/3.jpg",
-              name: "Great Grand Child",
-              gender: "Мужской",
-              years: "1900-1290",
-              profession: "Инженер",
-              birthPlace: "Город В",
-              bio: "Инновационный инженер с множеством идей.",
-              father: "Grand Child",
-              mother: "Жена Grand Child",
-              children: []
-            },
-            {
-              img: "images/4.jpg",
-              name: "Great Grand Child",
-              gender: "Женский",
-              years: "1900-1290",
-              profession: "Доктор",
-              birthPlace: "Город Г",
-              bio: "Сострадательная врач, помогающая людям.",
-              father: "Grand Child",
-              mother: "Жена Grand Child",
-              children: []
-            },
-            {
-              img: "images/4.jpg",
-              name: "Great Grand Child",
-              gender: "Мужской",
-              years: "1900-1290",
-              profession: "Художник",
-              birthPlace: "Город Д",
-              bio: "Творческий художник с яркой фантазией.",
-              father: "Grand Child",
-              mother: "Жена Grand Child",
-              children: []
-            }
-          ]
-        },
-        {
-          img: "images/2.jpg",
-          name: "Grand Child",
-          gender: "Мужской",
-          years: "1900-1290",
-          profession: "Механик",
-          birthPlace: "Город Е",
-          bio: "Опытный механик, знающий все тонкости техники.",
-          father: "Child",
-          mother: "Жена Child",
-          children: [
-            {
-              img: "images/3.jpg",
-              name: "Great Grand Child",
-              gender: "Женский",
-              years: "1900-1290",
-              profession: "Медсестра",
-              birthPlace: "Город Ж",
-              bio: "Добрая медсестра, всегда готовая помочь.",
-              father: "Grand Child",
-              mother: "Жена Grand Child",
-              children: []
-            },
-            {
-              img: "images/4.jpg",
-              name: "Great Grand Child",
-              gender: "Мужской",
-              years: "1900-1290",
-              profession: "Юрист",
-              birthPlace: "Город З",
-              bio: "Остроумный юрист с большим опытом.",
-              father: "Grand Child",
-              mother: "Жена Grand Child",
-              children: []
-            },
-            {
-              img: "images/4.jpg",
-              name: "Great Grand Child",
-              gender: "Женский",
-              years: "1900-1290",
-              profession: "Повар",
-              birthPlace: "Город И",
-              bio: "Творческий повар, радующий гурманов.",
-              father: "Grand Child",
-              mother: "Жена Grand Child",
-              children: []
-            }
-          ]
-        },
-        {
-          img: "images/5.jpg",
-          name: "Grand Child",
-          gender: "Женский",
-          years: "1900-1290",
-          profession: "Учёный",
-          birthPlace: "Город К",
-          bio: "Страстная учёная, всегда ищущая новые знания.",
-          father: "Child",
-          mother: "Жена Child",
-          children: [
-            {
-              img: "images/6.jpg",
-              name: "Great Grand Child",
-              gender: "Мужской",
-              years: "1900-1290",
-              profession: "Пилот",
-              birthPlace: "Город Л",
-              bio: "Отважный пилот, готовый к любым испытаниям.",
-              father: "Grand Child",
-              mother: "Жена Grand Child",
-              children: []
-            },
-            {
-              img: "images/7.jpg",
-              name: "Great Grand Child",
-              gender: "Женский",
-              years: "1900-1290",
-              profession: "Писатель",
-              birthPlace: "Город М",
-              bio: "Творческий писатель, любящий слова и ритмы.",
-              father: "Grand Child",
-              mother: "Жена Grand Child",
-              children: []
-            },
-            {
-              img: "images/8.jpg",
-              name: "Great Grand Child",
-              gender: "Мужской",
-              years: "1900-1290",
-              profession: "Музыкант",
-              birthPlace: "Город Н",
-              bio: "Талантливый музыкант, наполняющий мир звуками.",
-              father: "Grand Child",
-              mother: "Жена Grand Child",
-              children: []
-            },
-            {
-              img: "images/8.jpg",
-              name: "Great Grand Child",
-              gender: "Женский",
-              years: "1900-1290",
-              profession: "Танцовщица",
-              birthPlace: "Город О",
-              bio: "Выразительная танцовщица, владеющая искусством движения.",
-              father: "Grand Child",
-              mother: "Жена Grand Child",
-              children: []
-            },
-            {
-              img: "images/8.jpg",
-              name: "Great Grand Child",
-              gender: "Мужской",
-              years: "1900-1290",
-              profession: "Программист",
-              birthPlace: "Город П",
-              bio: "Опытный программист, создающий новые технологии.",
-              father: "Grand Child",
-              mother: "Жена Grand Child",
-              children: []
-            }
-          ]
-        },
-        {
-          img: "images/9.jpg",
-          name: "Grand Child",
-          gender: "Мужской",
-          years: "1900-1290",
-          profession: "Фермер",
-          birthPlace: "Город Р",
-          bio: "Преданный своему делу фермер, заботящийся о земле.",
-          father: "Child",
-          mother: "Жена Child",
-          children: []
-        }
-      ]
-    }
-  ];
+  // Глобальная переменная для данных дерева, которые будут загружены из JSON
+  let treeData = [];
 
   // Функция генерации HTML дерева с data-id для каждой карточки
   function generateTree(nodes) {
     let html = '<ul>';
     nodes.forEach(node => {
       const id = personIdCounter++;
+      node.id = id; // присваиваем уникальный id непосредственно объекту
       personById[id] = node;
       html += `<li>
         <a href="#" class="person-card" data-id="${id}">
@@ -228,24 +34,37 @@ document.addEventListener("DOMContentLoaded", function () {
     return html;
   }
 
-  // Вставляем сгенерированное дерево в #tree-root
-  const treeRoot = document.getElementById("tree-root");
-  treeRoot.innerHTML = generateTree(treeData);
+  // Функция для загрузки данных из treeData.json
+  function loadTreeData() {
+    fetch("treeData.json")
+      .then(response => response.json())
+      .then(data => {
+        treeData = data;
+        personIdCounter = 0;
+        Object.keys(personById).forEach(key => delete personById[key]);
+        const treeRoot = document.getElementById("tree-root");
+        treeRoot.innerHTML = generateTree(treeData);
+      })
+      .catch(error => console.error("Ошибка загрузки treeData.json:", error));
+  }
 
-  // Главный обработчик кликов по дереву.
-  // Если режим выбора родителя включен, выбирается родитель (детальное окно не открывается).
+  loadTreeData();
+
+  // Обработчик клика по дереву
+  const treeRoot = document.getElementById("tree-root");
   treeRoot.addEventListener('click', function (e) {
     const card = e.target.closest('.person-card');
     if (!card) return;
     e.preventDefault();
     if (isSelectingParent) {
       selectedParentId = card.dataset.id;
-      selectedParentText.textContent = `Выбран родитель: ${card.querySelector('span').textContent}`;
+      const selectedName = card.querySelector('span').textContent;
+      document.getElementById('selected-parent-text').textContent = `Выбран родитель: ${selectedName}`;
       isSelectingParent = false;
-      addChildModal.classList.add('active');
+      document.getElementById('add-child-modal').classList.add('active');
     } else {
-      const id = card.dataset.id;
-      const person = personById[id];
+      currentPersonId = card.dataset.id;
+      const person = personById[currentPersonId];
       if (person) {
         showModal(person);
       }
@@ -339,15 +158,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  /* --- Функционал формы добавления ребенка --- */
+  /* --- Функционал формы добавления/редактирования ребенка --- */
   const addChildBtn = document.getElementById('add-child-btn');
   const addChildModal = document.getElementById('add-child-modal');
   const closeAddModal = document.getElementById('close-add-modal');
   const addChildForm = document.getElementById('add-child-form');
   const chooseParentBtn = document.getElementById('choose-parent-btn');
   const selectedParentText = document.getElementById('selected-parent-text');
+  const submitChildBtn = document.getElementById('submit-child-btn');
 
   addChildBtn.addEventListener('click', function () {
+    isEditing = false;
+    addChildForm.reset();
+    submitChildBtn.textContent = "Добавить";
+    chooseParentBtn.textContent = "Выбрать родителя";
     addChildModal.classList.add('active');
   });
   closeAddModal.addEventListener('click', function () {
@@ -378,19 +202,42 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       newChild.img = newChild.gender === "Мужской" ? "images/default_male.jpg" : "images/default_female.jpg";
     }
-    if (selectedParentId && personById[selectedParentId]) {
-      const parent = personById[selectedParentId];
-      if (parent.gender === "Мужской") {
-        newChild.parentRole = "Папа";
-        newChild.father = parent.name;
-      } else {
-        newChild.parentRole = "Мама";
-        newChild.mother = parent.name;
+    if (isEditing && currentPersonId !== null && personById[currentPersonId]) {
+      // Режим редактирования: обновляем данные текущего элемента
+      const person = personById[currentPersonId];
+      person.img = newChild.img;
+      person.name = newChild.name;
+      person.gender = newChild.gender;
+      person.years = newChild.years;
+      person.profession = newChild.profession;
+      person.birthPlace = newChild.birthPlace;
+      person.bio = newChild.bio;
+      if (selectedParentId && personById[selectedParentId]) {
+        const parent = personById[selectedParentId];
+        if (parent.gender === "Мужской") {
+          person.parentRole = "Папа";
+          person.father = parent.name;
+        } else {
+          person.parentRole = "Мама";
+          person.mother = parent.name;
+        }
       }
-      if (!parent.children) parent.children = [];
-      parent.children.push(newChild);
     } else {
-      treeData.push(newChild);
+      // Добавление нового элемента
+      if (selectedParentId && personById[selectedParentId]) {
+        const parent = personById[selectedParentId];
+        if (parent.gender === "Мужской") {
+          newChild.parentRole = "Папа";
+          newChild.father = parent.name;
+        } else {
+          newChild.parentRole = "Мама";
+          newChild.mother = parent.name;
+        }
+        if (!parent.children) parent.children = [];
+        parent.children.push(newChild);
+      } else {
+        treeData.push(newChild);
+      }
     }
     addChildForm.reset();
     selectedParentId = null;
@@ -399,5 +246,115 @@ document.addEventListener("DOMContentLoaded", function () {
     personIdCounter = 0;
     Object.keys(personById).forEach(key => delete personById[key]);
     treeRoot.innerHTML = generateTree(treeData);
+    isEditing = false;
+    submitChildBtn.textContent = "Добавить";
+    chooseParentBtn.textContent = "Выбрать родителя";
   });
+
+  // --- Обработчики для навигационных кнопок контейнера ---
+  const navUp = document.querySelector(".navigation-controls .up");
+  const navDown = document.querySelector(".navigation-controls .down");
+  const navLeft = document.querySelector(".navigation-controls .left");
+  const navRight = document.querySelector(".navigation-controls .right");
+  const zoomPlus = document.querySelector(".navigation-controls .plus");
+  const zoomMinus = document.querySelector(".navigation-controls .minus");
+
+  const panStep = 50; // шаг перемещения
+  const zoomStep = 1.1; // коэффициент зума
+
+  if (navUp) {
+    navUp.addEventListener("click", function() {
+      translateY -= panStep;
+      updateTransform();
+    });
+  }
+  if (navDown) {
+    navDown.addEventListener("click", function() {
+      translateY += panStep;
+      updateTransform();
+    });
+  }
+  if (navLeft) {
+    navLeft.addEventListener("click", function() {
+      translateX -= panStep;
+      updateTransform();
+    });
+  }
+  if (navRight) {
+    navRight.addEventListener("click", function() {
+      translateX += panStep;
+      updateTransform();
+    });
+  }
+  if (zoomPlus) {
+    zoomPlus.addEventListener("click", function() {
+      scale *= zoomStep;
+      updateTransform();
+    });
+  }
+  if (zoomMinus) {
+    zoomMinus.addEventListener("click", function() {
+      scale /= zoomStep;
+      updateTransform();
+    });
+  }
+
+  // --- Обработчики для кнопок редактирования и удаления в модальном окне ---
+  const editBtn = document.getElementById("edit-btn");
+  const deleteBtn = document.getElementById("delete-btn");
+
+  if (editBtn) {
+    editBtn.addEventListener("click", function() {
+      if (currentPersonId !== null && personById[currentPersonId]) {
+        const person = personById[currentPersonId];
+        // Заполняем форму данными текущего элемента для редактирования
+        document.getElementById('new-name').value = person.name;
+        document.getElementById('new-gender').value = person.gender;
+        document.getElementById('new-years').value = person.years;
+        document.getElementById('new-profession').value = person.profession;
+        document.getElementById('new-birthPlace').value = person.birthPlace;
+        document.getElementById('new-bio').value = person.bio;
+        // Файл для фото оставляем пустым
+        isEditing = true;
+        addChildModal.classList.add('active');
+        modal.classList.remove('active');
+        // Изменяем текст кнопок формы в режиме редактирования
+        submitChildBtn.textContent = "Сохранить";
+        if ((person.parentRole === "Папа" && person.father) || (person.parentRole === "Мама" && person.mother)) {
+          selectedParentText.textContent = `Родитель: ${person.parentRole === "Папа" ? person.father : person.mother}`;
+        } else {
+          selectedParentText.textContent = "Родитель не выбран";
+        }
+        chooseParentBtn.textContent = "Сменить родителя";
+      }
+    });
+  }
+
+  if (deleteBtn) {
+    deleteBtn.addEventListener("click", function() {
+      if (currentPersonId !== null) {
+        if (confirm("Вы действительно хотите удалить эту карточку?")) {
+          // Рекурсивная функция для удаления элемента по id
+          function removePersonById(id, nodes) {
+            for (let i = 0; i < nodes.length; i++) {
+              if (nodes[i].id === id) {
+                nodes.splice(i, 1);
+                return true;
+              } else if (nodes[i].children && nodes[i].children.length) {
+                const removed = removePersonById(id, nodes[i].children);
+                if (removed) return true;
+              }
+            }
+            return false;
+          }
+          // Используем уже присвоенный уникальный id, преобразовав currentPersonId к числу
+          removePersonById(parseInt(currentPersonId), treeData);
+          modal.classList.remove('active');
+          personIdCounter = 0;
+          Object.keys(personById).forEach(key => delete personById[key]);
+          treeRoot.innerHTML = generateTree(treeData);
+        }
+      }
+    });
+  }
 });
