@@ -7,16 +7,22 @@
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh; /* Чтобы контент занимал минимум высоту экрана */
+  overflow-x: hidden; /* Запрещаем горизонтальный скролл */
+  overflow-y: auto;   /* Разрешаем вертикальный скролл */
   font-family: 'Montserrat', sans-serif;
   background: #303133;
-  overflow: hidden;
   position: relative;
 }
 
 img {
   -webkit-user-drag: none;
   user-drag: none;
+}
+
+.tree-scroll-wrapper {
+  width: 100%;
+  overflow-x: hidden;
 }
 
 #tree-container-wrapper {
@@ -383,14 +389,6 @@ img {
 
 #add-spouse-btn:hover {
   background: darkred;
-}
-
-#tree-container-wrapper {
-  width: 1000%;
-  height: 90vh;
-  overflow: hidden;
-  cursor: grab;
-  position: relative;
 }
 
 #tree-container-wrapper.expanded {
