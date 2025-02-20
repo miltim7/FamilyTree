@@ -9,7 +9,7 @@
 body {
   height: 100vh;
   font-family: 'Montserrat', sans-serif;
-  background: #151515;
+  background: #303133;
   overflow: hidden;
   position: relative;
 }
@@ -56,6 +56,7 @@ img {
   position: relative;
   padding: 30px;
   transition: 0.5s;
+  vertical-align: top;
 }
 
 .tree li::before,
@@ -64,7 +65,7 @@ img {
   position: absolute;
   top: 0;
   right: 50%;
-  border-top: 1px solid #B8860B;
+  border-top: 2px solid #c0a282;
   width: 51%;
   height: 30px;
 }
@@ -72,7 +73,7 @@ img {
 .tree li::after {
   right: auto;
   left: 50%;
-  border-left: 1px solid #B8860B;
+  border-left: 2px solid #c0a282;
 }
 
 .tree li:only-child::after,
@@ -90,7 +91,7 @@ img {
 }
 
 .tree li:last-child::before {
-  border-right: 1px solid #B8860B;
+  border-right: 2px solid #c0a282;
   border-radius: 0 5px 0 0;
 }
 
@@ -103,14 +104,13 @@ img {
   position: absolute;
   top: 0;
   left: 50%;
-  border-left: 1px solid #B8860B;
+  border-left: 2px solid #c0a282;
   width: 0;
   height: 20px;
 }
 
-/* Карточка (показывает Фото, ФИО и Годы жизни) */
 .tree li a {
-  border: 1px solid #B8860B;
+  border: 2px solid #c0a282;
   padding: 10px;
   display: inline-block;
   border-radius: 5px;
@@ -144,14 +144,29 @@ img {
   background: #252525;
 }
 
-/* Модальное окно */
+/* Стили для карточек с супружеской парой - увеличенная ширина для карточки с супружеской парой */
+.person-card.spouse-card {
+  width: 700px;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  vertical-align: top;
+}
+
+.person-card.spouse-card .spouse-part {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center;
+}
+
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,7 +188,7 @@ img {
   width: 95%;
   padding: 30px;
   position: relative;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   max-height: 90vh;
   overflow-y: auto;
 }
@@ -183,7 +198,7 @@ img {
   top: 10px;
   right: 15px;
   font-size: 24px;
-  color: #888;
+  color: #303133;
   cursor: pointer;
 }
 
@@ -206,12 +221,12 @@ img {
 .modal-header h2 {
   margin: 0;
   font-size: 28px;
-  color: #333;
+  color: #303133;
 }
 
 .modal-body {
   font-size: 16px;
-  color: #555;
+  color: #303133;
   line-height: 1.5;
 }
 
@@ -222,7 +237,7 @@ img {
 .info-row strong {
   display: inline-block;
   width: 130px;
-  color: #333;
+  color: #303133;
 }
 
 @media (max-width: 480px) {
@@ -230,15 +245,16 @@ img {
     flex-direction: column;
     text-align: center;
   }
+
   .modal-header img {
     margin: 0 0 10px;
   }
+
   .info-row strong {
     width: 100px;
   }
 }
 
-/* Стили для формы добавления ребенка */
 #add-child-form .form-row {
   margin-bottom: 15px;
 }
@@ -268,13 +284,42 @@ img {
   cursor: pointer;
 }
 
-/* Новые стили для кнопок редактирования и удаления в модальном окне */
+#add-spouse-form .form-row {
+  margin-bottom: 15px;
+}
+
+#add-spouse-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+#add-spouse-form input[type="text"],
+#add-spouse-form textarea,
+#add-spouse-form select,
+#add-spouse-form input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#add-spouse-form button {
+  padding: 10px 20px;
+  border: none;
+  background: #4caf50;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .modal-actions {
   margin-top: 20px;
   display: flex;
   gap: 20px;
   justify-content: center;
 }
+
 .modal-actions button {
   padding: 8px 16px;
   border: none;
@@ -284,6 +329,183 @@ img {
   color: #fff;
   transition: background 0.3s ease;
 }
+
 .modal-actions button:hover {
   background: #388e3c;
+}
+
+.container-section {
+  position: relative;
+  padding: 20px;
+  margin: 20px;
+}
+
+.container-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+#expand-container-btn,
+#add-child-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#expand-container-btn {
+  background: #c0a282;
+  color: #fff;
+}
+
+#expand-container-btn:hover {
+  background: #c0a282;
+}
+
+#add-child-btn {
+  background: #4caf50;
+  color: #fff;
+}
+
+#add-child-btn:hover {
+  background: #388e3c;
+}
+
+#add-spouse-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: red;
+  color: #fff;
+}
+
+#add-spouse-btn:hover {
+  background: darkred;
+}
+
+#tree-container-wrapper {
+  width: 1000%;
+  height: 90vh;
+  overflow: hidden;
+  cursor: grab;
+  position: relative;
+}
+
+#tree-container-wrapper.expanded {
+  height: auto;
+}
+
+.blog-section {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  padding: 40px 20px;
+  background: #ffffff;
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background: #fff;
+  border-radius: 8px;
+  width: 320px;
+}
+
+.blog-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.blog-date {
+  font-size: 14px;
+  color: #303133;
+  margin: 10px;
+}
+
+.blog-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.blog-desc {
+  font-size: 16px;
+  margin: 10px;
+}
+
+.read-more {
+  margin: 10px;
+  color: #303133;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: transparent;
+  padding: 0px 20px 0 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.read-more img {
+  width: 25px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.read-more:hover {
+  gap: 5px;
+  transition: 1s ease;
+}
+
+.navigation-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1100;
+}
+
+.navigation-controls .nav-btn,
+.navigation-controls .zoom-btn {
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background: #4caf50;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.navigation-controls .nav-btn:hover,
+.navigation-controls .zoom-btn:hover {
+  background: #388e3c;
+}
+
+.navigation-controls .up {
+  align-self: center;
+}
+
+.navigation-controls .down {
+  align-self: center;
+}
+
+.navigation-controls .horizontal-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.navigation-controls .zoom-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }

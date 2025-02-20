@@ -3,9 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
   let personIdCounter = 0;
   const personById = {};
 
-  // Флаг режима выбора родителя
+  // Флаги режима выбора родителя и супруга
   let isSelectingParent = false;
   let selectedParentId = null;
+  let isSelectingSpouse = false;
+  let selectedSpouseId = null;
   let currentPersonId = null; // для редактирования/удаления
   let isEditing = false; // режим редактирования
 
@@ -19,12 +21,27 @@ document.addEventListener("DOMContentLoaded", function () {
       const id = personIdCounter++;
       node.id = id; // присваиваем уникальный id непосредственно объекту
       personById[id] = node;
-      html += `<li>
-        <a href="#" class="person-card" data-id="${id}">
-          <img src="${node.img}" draggable="false">
-          <span>${node.name}</span>
-          <span>${node.years}</span>
-        </a>`;
+      html += '<li>';
+      if (node.spouse) {
+        html += `<a href="#" class="person-card spouse-card" data-id="${id}">
+                   <div class="spouse-part">
+                     <img src="${node.img}" draggable="false">
+                     <span>${node.name}</span>
+                     <span>${node.years}</span>
+                   </div>
+                   <div class="spouse-part">
+                     <img src="${node.spouse.img}" draggable="false">
+                     <span>${node.spouse.name}</span>
+                     <span>${node.spouse.years}</span>
+                   </div>
+                 </a>`;
+      } else {
+        html += `<a href="#" class="person-card" data-id="${id}">
+                   <img src="${node.img}" draggable="false">
+                   <span>${node.name}</span>
+                   <span>${node.years}</span>
+                 </a>`;
+      }
       if (node.children && node.children.length) {
         html += generateTree(node.children);
       }
@@ -62,6 +79,12 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById('selected-parent-text').textContent = `Выбран родитель: ${selectedName}`;
       isSelectingParent = false;
       document.getElementById('add-child-modal').classList.add('active');
+    } else if (isSelectingSpouse) {
+      selectedSpouseId = card.dataset.id;
+      const selectedName = card.querySelector('span').textContent;
+      document.getElementById('selected-spouse-text').textContent = `Выбран супруг(а): ${selectedName}`;
+      isSelectingSpouse = false;
+      addSpouseModal.classList.add('active');
     } else {
       currentPersonId = card.dataset.id;
       const person = personById[currentPersonId];
@@ -148,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (e.ctrlKey) {
       e.preventDefault();
       const rect = wrapper.getBoundingClientRect();
-      const offsetX = e.clientX - rect.left;
+      const offsetX = e.clientX - rect.left;  
       const offsetY = e.clientY - rect.top;
       const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9;
       translateX = offsetX - zoomFactor * (offsetX - translateX);
@@ -249,6 +272,63 @@ document.addEventListener("DOMContentLoaded", function () {
     isEditing = false;
     submitChildBtn.textContent = "Добавить";
     chooseParentBtn.textContent = "Выбрать родителя";
+  });
+
+  /* --- Функционал формы добавления супруга(-ы) --- */
+  const addSpouseBtn = document.getElementById('add-spouse-btn');
+  const addSpouseModal = document.getElementById('add-spouse-modal');
+  const closeSpouseModal = document.getElementById('close-spouse-modal');
+  const addSpouseForm = document.getElementById('add-spouse-form');
+  const chooseSpouseBtn = document.getElementById('choose-spouse-btn');
+  const selectedSpouseText = document.getElementById('selected-spouse-text');
+  const submitSpouseBtn = document.getElementById('submit-spouse-btn');
+
+  addSpouseBtn.addEventListener('click', function () {
+    addSpouseForm.reset();
+    submitSpouseBtn.textContent = "Добавить";
+    chooseSpouseBtn.textContent = "Выбрать супруга(-у)";
+    addSpouseModal.classList.add('active');
+  });
+
+  closeSpouseModal.addEventListener('click', function () {
+    addSpouseModal.classList.remove('active');
+  });
+
+  chooseSpouseBtn.addEventListener('click', function () {
+    addSpouseModal.classList.remove('active');
+    selectedSpouseText.textContent = "Выберите супруга(-у)...";
+    isSelectingSpouse = true;
+  });
+
+  addSpouseForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (selectedSpouseId && personById[selectedSpouseId]) {
+      const spouseData = {
+        img: "",
+        name: document.getElementById('new-spouse-name').value,
+        gender: document.getElementById('new-spouse-gender').value,
+        years: document.getElementById('new-spouse-years').value,
+        profession: document.getElementById('new-spouse-profession').value,
+        birthPlace: document.getElementById('new-spouse-birthPlace').value,
+        bio: document.getElementById('new-spouse-bio').value
+      };
+      const photoInput = document.getElementById('new-spouse-photo');
+      if (photoInput.files && photoInput.files[0]) {
+        spouseData.img = URL.createObjectURL(photoInput.files[0]);
+      } else {
+        spouseData.img = spouseData.gender === "Мужской" ? "images/default_male.jpg" : "images/default_female.jpg";
+      }
+      // Обновляем выбранного человека, добавляя данные супруга(-и)
+      const person = personById[selectedSpouseId];
+      person.spouse = spouseData;
+      addSpouseForm.reset();
+      selectedSpouseId = null;
+      selectedSpouseText.textContent = "Супруг(а) не выбран";
+      addSpouseModal.classList.remove('active');
+      personIdCounter = 0;
+      Object.keys(personById).forEach(key => delete personById[key]);
+      treeRoot.innerHTML = generateTree(treeData);
+    }
   });
 
   // --- Обработчики для навигационных кнопок контейнера ---
