@@ -223,6 +223,7 @@ header .burger.hide {
   .hero h1 {
     font-size: 42px;
   }
+
   .hero p {
     font-size: 16px;
   }
@@ -301,73 +302,6 @@ header .burger.hide {
     height: auto;
   }
 
-  /* Blog Section */
-  .blog-section {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-    padding: 40px 20px;
-    background: #ffffff;
-  }
-
-  .blog-card {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    background: #fff;
-    border-radius: 8px;
-    width: 320px;
-  }
-
-  .blog-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-    margin-bottom: 10px;
-  }
-
-  .blog-date {
-    font-size: 14px;
-    color: #303133;
-    margin: 10px;
-  }
-
-  .blog-title {
-    font-size: 22px;
-    font-weight: bold;
-    margin: 10px;
-  }
-
-  .blog-desc {
-    font-size: 16px;
-    margin: 10px;
-  }
-
-  .read-more {
-    margin: 10px;
-    color: #303133;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    background-color: transparent;
-    padding: 0px 20px 0 0;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .read-more img {
-    width: 25px;
-    margin-top: 10px;
-    margin-left: 10px;
-  }
-
-  .read-more:hover {
-    gap: 5px;
-    transition: 1s ease;
-  }
-
   .navigation-controls {
     position: absolute;
     bottom: 20px;
@@ -414,4 +348,4 @@ header .burger.hide {
     gap: 10px;
     justify-content: center;
   }
-} 
+}

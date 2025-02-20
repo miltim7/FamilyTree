@@ -1,0 +1,151 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 95%;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #303133;
+    cursor: pointer;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.modal-header img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 28px;
+    color: #303133;
+}
+
+.modal-body {
+    font-size: 16px;
+    color: #303133;
+    line-height: 1.5;
+}
+
+.info-row {
+    margin-bottom: 10px;
+}
+
+.info-row strong {
+    display: inline-block;
+    width: 130px;
+    color: #303133;
+}
+
+@media (max-width: 480px) {
+    .modal-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .modal-header img {
+        margin: 0 0 10px;
+    }
+
+    .info-row strong {
+        width: 100px;
+    }
+}
+
+#add-child-form .form-row,
+#add-spouse-form .form-row {
+    margin-bottom: 15px;
+}
+
+#add-child-form label,
+#add-spouse-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+#add-child-form input[type="text"],
+#add-child-form textarea,
+#add-child-form select,
+#add-child-form input[type="file"],
+#add-spouse-form input[type="text"],
+#add-spouse-form textarea,
+#add-spouse-form select,
+#add-spouse-form input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#add-child-form button,
+#add-spouse-form button {
+    padding: 10px 20px;
+    border: none;
+    background: #4caf50;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.modal-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #4caf50;
+    color: #fff;
+    transition: background 0.3s ease;
+}
+
+.modal-actions button:hover {
+    background: #388e3c;
+}
