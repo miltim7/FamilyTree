@@ -14,6 +14,14 @@ document.addEventListener("DOMContentLoaded", function () {
   // Глобальная переменная для данных дерева, которые будут загружены из JSON
   let treeData = [];
 
+  // Начальные параметры трансформации
+  let scale = 1, translateX = 0, translateY = 0;
+
+  function updateTransform() {
+    const treeContainer = document.getElementById('tree-container');
+    treeContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+  }
+
   // Функция генерации HTML дерева с data-id для каждой карточки
   function generateTree(nodes) {
     let html = '<ul>';
@@ -61,6 +69,13 @@ document.addEventListener("DOMContentLoaded", function () {
         Object.keys(personById).forEach(key => delete personById[key]);
         const treeRoot = document.getElementById("tree-root");
         treeRoot.innerHTML = generateTree(treeData);
+        // Вместо центрирования, устанавливаем начальное положение так,
+        // чтобы левая часть дерева была видна (translateX = 0)
+        setTimeout(() => {
+          translateX = 0;
+          translateY = 0;
+          updateTransform();
+        }, 100);
       })
       .catch(error => console.error("Ошибка загрузки treeData.json:", error));
   }
@@ -84,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const selectedName = card.querySelector('span').textContent;
       document.getElementById('selected-spouse-text').textContent = `Выбран супруг(а): ${selectedName}`;
       isSelectingSpouse = false;
-      addSpouseModal.classList.add('active');
+      document.getElementById('add-spouse-modal').classList.add('active');
     } else {
       currentPersonId = card.dataset.id;
       const person = personById[currentPersonId];
@@ -130,10 +145,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (e.target === modal) hideModal();
   });
 
-  // Функционал зума и перетаскивания дерева
+  // Функционал зума и перетаскивания дерева (ПК и планшеты)
   const wrapper = document.getElementById('tree-container-wrapper');
   const treeContainer = document.getElementById('tree-container');
-  let scale = 1, translateX = 0, translateY = 0;
   let isDragging = false, startX, startY;
   function updateTransform() {
     treeContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
@@ -171,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (e.ctrlKey) {
       e.preventDefault();
       const rect = wrapper.getBoundingClientRect();
-      const offsetX = e.clientX - rect.left;  
+      const offsetX = e.clientX - rect.left;
       const offsetY = e.clientY - rect.top;
       const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9;
       translateX = offsetX - zoomFactor * (offsetX - translateX);
@@ -180,6 +194,50 @@ document.addEventListener("DOMContentLoaded", function () {
       updateTransform();
     }
   });
+
+  // Добавляем поддержку touch событий для мобильных устройств
+  wrapper.addEventListener('touchstart', function (e) {
+    if (e.touches.length === 1) {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    } else if (e.touches.length === 2) {
+      isDragging = false;
+      initialDistance = getDistance(e.touches[0], e.touches[1]);
+      initialScale = scale;
+    }
+  }, {passive: false});
+
+  wrapper.addEventListener('touchmove', function (e) {
+    e.preventDefault();
+    if (e.touches.length === 1 && isDragging) {
+      const dx = e.touches[0].clientX - startX;
+      const dy = e.touches[0].clientY - startY;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      translateX += dx;
+      translateY += dy;
+      updateTransform();
+    } else if (e.touches.length === 2) {
+      let currentDistance = getDistance(e.touches[0], e.touches[1]);
+      let pinchScale = currentDistance / initialDistance;
+      scale = initialScale * pinchScale;
+      updateTransform();
+    }
+  }, {passive: false});
+
+  wrapper.addEventListener('touchend', function (e) {
+    if (e.touches.length === 0) {
+      isDragging = false;
+      initialDistance = null;
+    }
+  });
+
+  function getDistance(touch1, touch2) {
+    const dx = touch2.clientX - touch1.clientX;
+    const dy = touch2.clientY - touch1.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
 
   /* --- Функционал формы добавления/редактирования ребенка --- */
   const addChildBtn = document.getElementById('add-child-btn');
@@ -226,7 +284,6 @@ document.addEventListener("DOMContentLoaded", function () {
       newChild.img = newChild.gender === "Мужской" ? "images/default_male.jpg" : "images/default_female.jpg";
     }
     if (isEditing && currentPersonId !== null && personById[currentPersonId]) {
-      // Режим редактирования: обновляем данные текущего элемента
       const person = personById[currentPersonId];
       person.img = newChild.img;
       person.name = newChild.name;
@@ -246,7 +303,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     } else {
-      // Добавление нового элемента
       if (selectedParentId && personById[selectedParentId]) {
         const parent = personById[selectedParentId];
         if (parent.gender === "Мужской") {
@@ -318,7 +374,6 @@ document.addEventListener("DOMContentLoaded", function () {
       } else {
         spouseData.img = spouseData.gender === "Мужской" ? "images/default_male.jpg" : "images/default_female.jpg";
       }
-      // Обновляем выбранного человека, добавляя данные супруга(-и)
       const person = personById[selectedSpouseId];
       person.spouse = spouseData;
       addSpouseForm.reset();
@@ -387,18 +442,15 @@ document.addEventListener("DOMContentLoaded", function () {
     editBtn.addEventListener("click", function() {
       if (currentPersonId !== null && personById[currentPersonId]) {
         const person = personById[currentPersonId];
-        // Заполняем форму данными текущего элемента для редактирования
         document.getElementById('new-name').value = person.name;
         document.getElementById('new-gender').value = person.gender;
         document.getElementById('new-years').value = person.years;
         document.getElementById('new-profession').value = person.profession;
         document.getElementById('new-birthPlace').value = person.birthPlace;
         document.getElementById('new-bio').value = person.bio;
-        // Файл для фото оставляем пустым
         isEditing = true;
         addChildModal.classList.add('active');
         modal.classList.remove('active');
-        // Изменяем текст кнопок формы в режиме редактирования
         submitChildBtn.textContent = "Сохранить";
         if ((person.parentRole === "Папа" && person.father) || (person.parentRole === "Мама" && person.mother)) {
           selectedParentText.textContent = `Родитель: ${person.parentRole === "Папа" ? person.father : person.mother}`;
@@ -414,7 +466,6 @@ document.addEventListener("DOMContentLoaded", function () {
     deleteBtn.addEventListener("click", function() {
       if (currentPersonId !== null) {
         if (confirm("Вы действительно хотите удалить эту карточку?")) {
-          // Рекурсивная функция для удаления элемента по id
           function removePersonById(id, nodes) {
             for (let i = 0; i < nodes.length; i++) {
               if (nodes[i].id === id) {
@@ -427,7 +478,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             return false;
           }
-          // Используем уже присвоенный уникальный id, преобразовав currentPersonId к числу
           removePersonById(parseInt(currentPersonId), treeData);
           modal.classList.remove('active');
           personIdCounter = 0;
@@ -437,4 +487,16 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+
+  // --- Новая функциональность: Кнопка "Расширить контейнер" ---
+  const expandBtn = document.getElementById("expand-container-btn");
+  expandBtn.addEventListener("click", function() {
+    const container = document.getElementById("tree-container-wrapper");
+    container.classList.toggle("expanded");
+    if (container.classList.contains("expanded")) {
+      expandBtn.textContent = "Свернуть контейнер";
+    } else {
+      expandBtn.textContent = "Расширить контейнер";
+    }
+  });
 });

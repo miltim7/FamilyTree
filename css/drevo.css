@@ -1,188 +1,188 @@
 .tree-scroll-wrapper {
-    width: 99%;
-    margin-left: 5px;
-    overflow-x: hidden;
-    border: 1px solid #c0a282;
-  }
-  
-  #tree-container-wrapper {
-    width: 1000%;
-    height: 100vh;
-    overflow: hidden;
-    cursor: grab;
-    position: relative;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
-  #tree-container {
-    transform-origin: 0 0;
-    transition: transform 0.1s ease-out;
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
-  
-  .tree {
-    text-align: center;
-  }
-  
-  .tree ul {
-    padding-top: 20px;
-    position: relative;
-    transition: 0.5s;
-  }
-  
-  .tree li {
-    display: inline-table;
-    text-align: center;
-    list-style-type: none;
-    position: relative;
-    padding: 30px;
-    transition: 0.5s;
-    vertical-align: top;
-  }
-  
-  .tree li::before,
-  .tree li::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 50%;
-    border-top: 2px solid #c0a282;
-    width: 51%;
-    height: 30px;
-  }
-  
-  .tree li::after {
-    right: auto;
-    left: 50%;
-    border-left: 2px solid #c0a282;
-  }
-  
-  .tree li:only-child::after,
-  .tree li:only-child::before {
-    display: none;
-  }
-  
-  .tree li:only-child {
-    padding-top: 0;
-  }
-  
-  .tree li:first-child::before,
-  .tree li:last-child::after {
-    border: 0;
-  }
-  
-  .tree li:last-child::before {
-    border-right: 2px solid #c0a282;
-    border-radius: 0 5px 0 0;
-  }
-  
-  .tree li:first-child::after {
-    border-radius: 5px 0 0 0;
-  }
-  
-  .tree ul ul::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    border-left: 2px solid #c0a282;
-    width: 0;
-    height: 20px;
-  }
-  
-  .tree li a {
-    border: 2px solid #c0a282;
-    padding: 10px;
-    display: inline-block;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: 0.5s;
-    width: 350px;
-    background: transparent;
-    color: #fff;
-  }
-  
-  .tree li a img {
-    width: 80px;
-    height: 80px;
-    display: block;
-    margin: 0 auto 10px auto;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .tree li a span {
-    display: block;
-    padding: 8px;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
-  }
-  
-  .tree li a:hover {
-    background: #252525;
-  }
-  
-  /* Увеличенная карточка для супружеской пары */
-  .person-card.spouse-card {
-    width: 700px; /* увеличенная ширина */
-    display: inline-flex;
-    justify-content: space-between;
-    align-items: center;
-    vertical-align: top;
-  }
-  
-  .person-card.spouse-card .spouse-part {
-    width: 50%;
-    box-sizing: border-box;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  /* Группировка кнопок управления */
-  .container-controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin: 10px;
-  }
-  
-  /* Стили для всех кнопок в этом блоке */
-  .container-buttons button,
-  .navigation-controls button {
-    padding: 10px 20px;
-    border: 2px solid #c0a282;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-    background: transparent;
-    color: #fff;
-    transition: color 0.3s ease;
-  }
-  
-  .navigation-controls button {
-    width: 30px;
-    height: 30px;
-    padding: 0;
-  }
-  
-  .container-buttons button:hover,
-  .navigation-controls button:hover {
-    background-color: #c0a282;
-  }
-  
-  /* Группировка навигационных и зум кнопок */
-  .navigation-controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
+  width: 99%;
+  margin-left: 5px;
+  overflow-x: hidden;
+  border: 1px solid #c0a282;
+}
+
+#tree-container-wrapper {
+  width: 10000px;
+  height: 100vh;
+  overflow: hidden;
+  cursor: grab;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#tree-container {
+  transform-origin: 0 0;
+  transition: transform 0.1s ease-out;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.tree {
+  text-align: center;
+}
+
+.tree ul {
+  padding-top: 20px;
+  position: relative;
+  transition: 0.5s;
+}
+
+.tree li {
+  display: inline-table;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+  padding: 30px;
+  transition: 0.5s;
+  vertical-align: top;
+}
+
+.tree li::before,
+.tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 50%;
+  border-top: 2px solid #c0a282;
+  width: 51%;
+  height: 30px;
+}
+
+.tree li::after {
+  right: auto;
+  left: 50%;
+  border-left: 2px solid #c0a282;
+}
+
+.tree li:only-child::after,
+.tree li:only-child::before {
+  display: none;
+}
+
+.tree li:only-child {
+  padding-top: 0;
+}
+
+.tree li:first-child::before,
+.tree li:last-child::after {
+  border: 0;
+}
+
+.tree li:last-child::before {
+  border-right: 2px solid #c0a282;
+  border-radius: 0 5px 0 0;
+}
+
+.tree li:first-child::after {
+  border-radius: 5px 0 0 0;
+}
+
+.tree ul ul::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  border-left: 2px solid #c0a282;
+  width: 0;
+  height: 20px;
+}
+
+.tree li a {
+  border: 2px solid #c0a282;
+  padding: 10px;
+  display: inline-block;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.5s;
+  width: 350px;
+  background: transparent;
+  color: #fff;
+}
+
+.tree li a img {
+  width: 80px;
+  height: 80px;
+  display: block;
+  margin: 0 auto 10px auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.tree li a span {
+  display: block;
+  padding: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.tree li a:hover {
+  background: #252525;
+}
+
+/* Увеличенная карточка для супружеской пары */
+.person-card.spouse-card {
+  width: 700px;
+  /* увеличенная ширина */
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  vertical-align: top;
+}
+
+.person-card.spouse-card .spouse-part {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Группировка кнопок управления */
+.container-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 10px;
+}
+
+/* Стили для всех кнопок в этом блоке */
+.container-buttons button,
+.navigation-controls button {
+  padding: 10px 20px;
+  border: 2px solid #c0a282;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  background: transparent;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.navigation-controls button {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+}
+
+.container-buttons button:hover,
+.navigation-controls button:hover {
+  background-color: #c0a282;
+}
+
+/* Группировка навигационных и зум кнопок */
+.navigation-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
