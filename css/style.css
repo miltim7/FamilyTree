@@ -19,3 +19,12 @@ body {
   background: #303133;
   position: relative;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+.container-section,
+.blog-section {
+  scroll-margin-top: 70px;
+}

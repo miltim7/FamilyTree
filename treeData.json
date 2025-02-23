@@ -1,197 +1,170 @@
 [
   {
-    "img": "images/1.jpg",
-    "name": "Child",
+    "img": "images/default_male.jpg",
+    "name": "Тимур",
     "gender": "Мужской",
-    "years": "1900-1290",
-    "profession": "Фермер",
-    "birthPlace": "Деревня А",
-    "bio": "Трудолюбивый человек с богатой историей.",
+    "years": "1940-2023",
+    "profession": "Пенсионер",
+    "birthPlace": "Город Альфа",
+    "bio": "Мудрый основатель семьи.",
     "father": "Неизвестен",
     "mother": "Неизвестна",
     "children": [
       {
-        "img": "images/2.jpg",
-        "name": "Grand Child",
-        "gender": "Женский",
-        "years": "1900-1290",
-        "profession": "Учитель",
-        "birthPlace": "Город Б",
-        "bio": "Заботливая учительница, посвятившая жизнь обучению детей.",
-        "father": "Child",
-        "mother": "Жена Child",
-        "children": [
-          {
-            "img": "images/3.jpg",
-            "name": "Great Grand Child",
-            "gender": "Мужской",
-            "years": "1900-1290",
-            "profession": "Инженер",
-            "birthPlace": "Город В",
-            "bio": "Инновационный инженер с множеством идей.",
-            "father": "Grand Child",
-            "mother": "Жена Grand Child",
-            "children": []
-          },
-          {
-            "img": "images/4.jpg",
-            "name": "Great Grand Child",
-            "gender": "Женский",
-            "years": "1900-1290",
-            "profession": "Доктор",
-            "birthPlace": "Город Г",
-            "bio": "Сострадательная врач, помогающая людям.",
-            "father": "Grand Child",
-            "mother": "Жена Grand Child",
-            "children": []
-          },
-          {
-            "img": "images/4.jpg",
-            "name": "Great Grand Child",
-            "gender": "Мужской",
-            "years": "1900-1290",
-            "profession": "Художник",
-            "birthPlace": "Город Д",
-            "bio": "Творческий художник с яркой фантазией.",
-            "father": "Grand Child",
-            "mother": "Жена Grand Child",
-            "children": []
-          }
-        ]
-      },
-      {
-        "img": "images/2.jpg",
-        "name": "Grand Child",
+        "img": "images/default_male.jpg",
+        "name": "Алексей",
         "gender": "Мужской",
-        "years": "1900-1290",
-        "profession": "Механик",
-        "birthPlace": "Город Е",
-        "bio": "Опытный механик, знающий все тонкости техники.",
-        "father": "Child",
-        "mother": "Жена Child",
+        "years": "1965-",
+        "profession": "Инженер",
+        "birthPlace": "Город Бета",
+        "bio": "Трудолюбивый и амбициозный.",
+        "father": "Тимур",
+        "mother": "Жена Тимура",
+        "spouse": {
+          "img": "images/default_female.jpg",
+          "name": "Ольга",
+          "gender": "Женский",
+          "years": "1967-",
+          "profession": "Учительница",
+          "birthPlace": "Город Гамма",
+          "bio": "Добрая и отзывчивая."
+        },
         "children": [
           {
-            "img": "images/3.jpg",
-            "name": "Great Grand Child",
-            "gender": "Женский",
-            "years": "1900-1290",
-            "profession": "Медсестра",
-            "birthPlace": "Город Ж",
-            "bio": "Добрая медсестра, всегда готовая помочь.",
-            "father": "Grand Child",
-            "mother": "Жена Grand Child",
-            "children": []
-          },
-          {
-            "img": "images/4.jpg",
-            "name": "Great Grand Child",
+            "img": "images/default_male.jpg",
+            "name": "Дмитрий",
             "gender": "Мужской",
-            "years": "1900-1290",
-            "profession": "Юрист",
-            "birthPlace": "Город З",
-            "bio": "Остроумный юрист с большим опытом.",
-            "father": "Grand Child",
-            "mother": "Жена Grand Child",
-            "children": []
-          },
-          {
-            "img": "images/4.jpg",
-            "name": "Great Grand Child",
-            "gender": "Женский",
-            "years": "1900-1290",
-            "profession": "Повар",
-            "birthPlace": "Город И",
-            "bio": "Творческий повар, радующий гурманов.",
-            "father": "Grand Child",
-            "mother": "Жена Grand Child",
-            "children": []
-          }
-        ]
-      },
-      {
-        "img": "images/5.jpg",
-        "name": "Grand Child",
-        "gender": "Женский",
-        "years": "1900-1290",
-        "profession": "Учёный",
-        "birthPlace": "Город К",
-        "bio": "Страстная учёная, всегда ищущая новые знания.",
-        "father": "Child",
-        "mother": "Жена Child",
-        "children": [
-          {
-            "img": "images/6.jpg",
-            "name": "Great Grand Child",
-            "gender": "Мужской",
-            "years": "1900-1290",
-            "profession": "Пилот",
-            "birthPlace": "Город Л",
-            "bio": "Отважный пилот, готовый к любым испытаниям.",
-            "father": "Grand Child",
-            "mother": "Жена Grand Child",
-            "children": []
-          },
-          {
-            "img": "images/7.jpg",
-            "name": "Great Grand Child",
-            "gender": "Женский",
-            "years": "1900-1290",
-            "profession": "Писатель",
-            "birthPlace": "Город М",
-            "bio": "Творческий писатель, любящий слова и ритмы.",
-            "father": "Grand Child",
-            "mother": "Жена Grand Child",
-            "children": []
-          },
-          {
-            "img": "images/8.jpg",
-            "name": "Great Grand Child",
-            "gender": "Мужской",
-            "years": "1900-1290",
-            "profession": "Музыкант",
-            "birthPlace": "Город Н",
-            "bio": "Талантливый музыкант, наполняющий мир звуками.",
-            "father": "Grand Child",
-            "mother": "Жена Grand Child",
-            "children": []
-          },
-          {
-            "img": "images/8.jpg",
-            "name": "Great Grand Child",
-            "gender": "Женский",
-            "years": "1900-1290",
-            "profession": "Танцовщица",
-            "birthPlace": "Город О",
-            "bio": "Выразительная танцовщица, владеющая искусством движения.",
-            "father": "Grand Child",
-            "mother": "Жена Grand Child",
-            "children": []
-          },
-          {
-            "img": "images/8.jpg",
-            "name": "Great Grand Child",
-            "gender": "Мужской",
-            "years": "1900-1290",
+            "years": "1990-",
             "profession": "Программист",
-            "birthPlace": "Город П",
-            "bio": "Опытный программист, создающий новые технологии.",
-            "father": "Grand Child",
-            "mother": "Жена Grand Child",
+            "birthPlace": "Город Дельта",
+            "bio": "Талантливый IT-специалист.",
+            "father": "Алексей",
+            "mother": "Ольга",
+            "children": [],
+            "spouse": {
+              "img": "images/default_female.jpg",
+              "name": "Ирина",
+              "gender": "Женский",
+              "years": "1992-",
+              "profession": "Дизайнер",
+              "birthPlace": "Город Эпсилон",
+              "bio": "Креативная и энергичная."
+            }
+          },
+          {
+            "img": "images/default_male.jpg",
+            "name": "Сергей",
+            "gender": "Мужской",
+            "years": "1993-",
+            "profession": "Экономист",
+            "birthPlace": "Город Зета",
+            "bio": "Рациональный и аналитичный.",
+            "father": "Алексей",
+            "mother": "Ольга",
             "children": []
           }
         ]
       },
       {
-        "img": "images/9.jpg",
-        "name": "Grand Child",
+        "img": "images/default_female.jpg",
+        "name": "Мария",
+        "gender": "Женский",
+        "years": "1970-",
+        "profession": "Врач",
+        "birthPlace": "Город Иота",
+        "bio": "Заботливая и профессиональная.",
+        "father": "Тимур",
+        "mother": "Жена Тимура",
+        "spouse": {
+          "img": "images/default_male.jpg",
+          "name": "Сергей",
+          "gender": "Мужской",
+          "years": "1968-",
+          "profession": "Предприниматель",
+          "birthPlace": "Город Каппа",
+          "bio": "Энергичный и инициативный."
+        },
+        "children": [
+          {
+            "img": "images/default_female.jpg",
+            "name": "Анна",
+            "gender": "Женский",
+            "years": "1995-",
+            "profession": "Психолог",
+            "birthPlace": "Город Лямбда",
+            "bio": "Внимательная и добрая.",
+            "father": "Сергей",
+            "mother": "Мария",
+            "children": []
+          },
+          {
+            "img": "images/default_male.jpg",
+            "name": "Иван",
+            "gender": "Мужской",
+            "years": "1998-",
+            "profession": "Инженер",
+            "birthPlace": "Город Мю",
+            "bio": "Технически подкованный.",
+            "father": "Сергей",
+            "mother": "Мария",
+            "children": []
+          }
+        ]
+      },
+      {
+        "img": "images/default_male.jpg",
+        "name": "Игорь",
         "gender": "Мужской",
-        "years": "1900-1290",
-        "profession": "Фермер",
-        "birthPlace": "Город Р",
-        "bio": "Преданный своему делу фермер, заботящийся о земле.",
-        "father": "Child",
-        "mother": "Жена Child",
-        "children": []
+        "years": "1975-",
+        "profession": "Юрист",
+        "birthPlace": "Город Омикрон",
+        "bio": "Защитник справедливости.",
+        "father": "Тимур",
+        "mother": "Жена Тимура",
+        "spouse": {
+          "img": "images/default_female.jpg",
+          "name": "Наталья",
+          "gender": "Женский",
+          "years": "1977-",
+          "profession": "Писательница",
+          "birthPlace": "Город Пи",
+          "bio": "Творческая и мечтательная."
+        },
+        "children": [
+          {
+            "img": "images/default_male.jpg",
+            "name": "Андрей",
+            "gender": "Мужской",
+            "years": "2000-",
+            "profession": "Программист",
+            "birthPlace": "Город Ро",
+            "bio": "Увлекается технологиями.",
+            "father": "Игорь",
+            "mother": "Наталья",
+            "children": []
+          },
+          {
+            "img": "images/default_female.jpg",
+            "name": "Екатерина",
+            "gender": "Женский",
+            "years": "2003-",
+            "profession": "Дизайнер",
+            "birthPlace": "Город Сигма",
+            "bio": "Креативная и стильная.",
+            "father": "Игорь",
+            "mother": "Наталья",
+            "children": [],
+            "spouse": {
+              "img": "images/default_male.jpg",
+              "name": "Михаил",
+              "gender": "Мужской",
+              "years": "2002-",
+              "profession": "Архитектор",
+              "birthPlace": "Город Тета",
+              "bio": "Творческий и амбициозный."
+            }
+          }
+        ]
       }
     ]
   }

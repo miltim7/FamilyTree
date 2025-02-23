@@ -7,7 +7,7 @@
 
 #tree-container-wrapper {
   width: 10000px;
-  height: 100vh;
+  height: calc(100vh - 100px);
   overflow: hidden;
   cursor: grab;
   position: relative;
@@ -129,24 +129,13 @@
   background: #252525;
 }
 
-/* Увеличенная карточка для супружеской пары */
-.person-card.spouse-card {
-  width: 700px;
-  /* увеличенная ширина */
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: center;
-  vertical-align: top;
+.spouse-cards {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }
 
-.person-card.spouse-card .spouse-part {
-  width: 50%;
-  box-sizing: border-box;
-  padding: 10px;
-  text-align: center;
-}
-
-/* Группировка кнопок управления */
+/* Изменённый блок управления древом - теперь позиционируется с помощью sticky */
 .container-controls {
   display: flex;
   flex-wrap: wrap;
@@ -154,9 +143,13 @@
   align-items: center;
   gap: 10px;
   margin: 10px;
+  position: sticky;
+  top: 70px;
+  z-index: 1;
+  background-color: #303133;
 }
 
-/* Стили для всех кнопок в этом блоке */
+
 .container-buttons button,
 .navigation-controls button {
   padding: 10px 20px;
@@ -180,7 +173,6 @@
   background-color: #c0a282;
 }
 
-/* Группировка навигационных и зум кнопок */
 .navigation-controls {
   display: flex;
   flex-wrap: wrap;
