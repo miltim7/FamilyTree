@@ -20,7 +20,7 @@
       <a class="logo" href="/">Шуховцевы-Шуховцевы</a>
       <nav class="nav-links">
         <a href="#container">Семейное древо</a>
-        <a href="#blog">Статьи</a>
+        <a href="articles.html">Статьи</a>
       </nav>
       <div class="contacts">
         <p>По любым вопросам</p>
@@ -41,7 +41,7 @@
         <a class="logo" href="/">Шуховцевы-Шуховцевы</a>
         <nav class="mobile-nav-links">
           <a href="#container">Семейное древо</a>
-          <a href="#blog">Статьи</a>
+          <a href="articles.html">Статьи</a>
         </nav>
         <div class="contacts">
           <div>
@@ -56,8 +56,6 @@
       </div>
     </div>
   </header>
-  
-  <!-- Hero -->
   <section class="hero">
     <div class="hero-blur">
       <div class="hero-content">
@@ -65,13 +63,11 @@
         <p>Здесь вы сможете узнать о богатой истории и наследии семьи, исследовать генеалогическое древо и прочитать статьи о предках. История семьи Шуховцевых — это наша общая память!</p>
         <div class="hero-buttons">
           <a href="#container" class="hero-btn">Семейное Древо</a>
-          <a href="#blog" class="hero-btn second">Статьи</a>
+          <a href="articles.html" class="hero-btn second">Статьи</a>
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Container (Древо) -->
   <section id="container" class="container-section">
     <div class="container-controls">
       <div class="container-buttons">
@@ -98,8 +94,6 @@
       </div>
     </div>
   </section>
-
-  <!-- Blog Section -->
   <section id="blog" class="blog-section">
     <div class="blog-container">
       <a href="#" class="blog-card">
@@ -152,8 +146,6 @@
       </a>
     </div>
   </section>
-  
-  <!-- Modals -->
   <div class="modal" id="person-modal">
     <div class="modal-content">
       <span class="close-modal" id="close-modal">&times;</span>
@@ -170,6 +162,7 @@
         <div class="info-row"><strong id="modal-father-label">Отец:</strong> <span id="modal-father"></span></div>
         <div class="info-row"><strong id="modal-mother-label">Мать:</strong> <span id="modal-mother"></span></div>
         <div class="info-row"><strong>Дети:</strong> <span id="modal-children"></span></div>
+        <div class="info-row"><strong>Статья:</strong> <span id="modal-article"></span></div>
       </div>
       <div class="modal-actions">
         <button id="edit-btn">Редактировать</button>
@@ -177,7 +170,6 @@
       </div>
     </div>
   </div>
-
   <div class="modal" id="add-child-modal">
     <div class="modal-content">
       <span class="close-modal" id="close-add-modal">&times;</span>
@@ -219,12 +211,15 @@
           <span id="selected-parent-text">Родитель не выбран</span>
         </div>
         <div class="form-row">
+          <button type="button" id="choose-article-btn">Выбрать статью</button>
+          <span id="selected-article-text">Статья не выбрана</span>
+        </div>
+        <div class="form-row">
           <button type="submit" id="submit-child-btn">Сохранить</button>
         </div>
       </form>
     </div>
   </div>
-
   <div class="modal" id="add-spouse-modal">
     <div class="modal-content">
       <span class="close-modal" id="close-spouse-modal">&times;</span>
@@ -266,12 +261,15 @@
           <span id="selected-spouse-text">Супруг(а) не выбран</span>
         </div>
         <div class="form-row">
+          <button type="button" id="choose-article-spouse-btn">Выбрать статью</button>
+          <span id="selected-article-spouse-text">Статья не выбрана</span>
+        </div>
+        <div class="form-row">
           <button type="submit" id="submit-spouse-btn">Сохранить</button>
         </div>
       </form>
     </div>
   </div>
-
   <div class="modal" id="login-modal">
     <div class="modal-content">
       <span class="close-modal" id="close-login-modal">&times;</span>
@@ -286,6 +284,13 @@
         </div>
       </form>
       <div id="login-error" style="color: red; display: none;">Неверный пароль!</div>
+    </div>
+  </div>
+  <div class="modal" id="article-selection-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-article-selection-modal">&times;</span>
+      <h2>Выберите статью</h2>
+      <div id="article-selection-list"></div>
     </div>
   </div>
 </body>

@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let treeData = [];
   let scale = 1, translateX = 0, translateY = 0;
   const minScale = 0.3, maxScale = 2;
+  let selectedArticleId = null;
+  let selectedArticleSpouseId = null;
   function updateTransform() {
     const treeContainer = document.getElementById('tree-container');
     treeContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
@@ -17,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function saveTreeData() {
     fetch('/api/treeData', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(treeData)
     }).then(response => response.json())
       .then(data => console.log('Data saved', data))
@@ -75,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return html;
   }
   function loadTreeData() {
-    fetch("/api/treeData")
+    fetch("api/treeData")
       .then(response => response.json())
       .then(data => {
         treeData = data;
@@ -118,32 +120,55 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
   const modal = document.getElementById('person-modal');
+
   function showModal(person) {
-    document.getElementById('modal-photo').src = person.img;
-    document.getElementById('modal-name').textContent = person.name;
-    document.getElementById('modal-gender').textContent = person.gender;
-    document.getElementById('modal-years').textContent = person.years;
-    document.getElementById('modal-profession').textContent = person.profession;
-    document.getElementById('modal-birthPlace').textContent = person.birthPlace;
-    document.getElementById('modal-bio').textContent = person.bio;
+    const modal = document.getElementById('person-modal');
+    modal.querySelector('#modal-photo').src = person.img;
+    modal.querySelector('#modal-name').textContent = person.name;
+    modal.querySelector('#modal-gender').textContent = person.gender;
+    modal.querySelector('#modal-years').textContent = person.years;
+    modal.querySelector('#modal-profession').textContent = person.profession;
+    modal.querySelector('#modal-birthPlace').textContent = person.birthPlace;
+    modal.querySelector('#modal-bio').textContent = person.bio;
+    
     if (person.parentRole === "Папа") {
-      document.getElementById('modal-father-label').textContent = "Папа:";
+      modal.querySelector('#modal-father-label').textContent = "Папа:";
     } else {
-      document.getElementById('modal-father-label').textContent = "Отец:";
+      modal.querySelector('#modal-father-label').textContent = "Отец:";
     }
     if (person.parentRole === "Мама") {
-      document.getElementById('modal-mother-label').textContent = "Мама:";
+      modal.querySelector('#modal-mother-label').textContent = "Мама:";
     } else {
-      document.getElementById('modal-mother-label').textContent = "Мать:";
+      modal.querySelector('#modal-mother-label').textContent = "Мать:";
     }
-    document.getElementById('modal-father').textContent = person.father || "";
-    document.getElementById('modal-mother').textContent = person.mother || "";
-    document.getElementById('modal-children').textContent =
+    
+    modal.querySelector('#modal-father').textContent = person.father || "";
+    modal.querySelector('#modal-mother').textContent = person.mother || "";
+    modal.querySelector('#modal-children').textContent =
       person.children && person.children.length
         ? person.children.map(child => child.name).join(', ')
         : "Нет данных";
+    
+    if (person.articleId) {
+      modal.querySelector('#modal-article').innerHTML = `<a href="articles.html?id=${person.articleId}" target="_blank">Посмотреть статью</a>`;
+    } else {
+      modal.querySelector('#modal-article').textContent = "Нет данных";
+    }
+    
+    // Проверяем, доступны ли кнопки редактирования/удаления (они показываются после успешного входа)
+    const editorButtons = document.getElementById('editor-buttons');
+    if (editorButtons && editorButtons.style.display === "block") {
+      modal.querySelector('#edit-btn').style.display = "block";
+      modal.querySelector('#delete-btn').style.display = "block";
+    } else {
+      modal.querySelector('#edit-btn').style.display = "none";
+      modal.querySelector('#delete-btn').style.display = "none";
+    }
+    
     modal.classList.add('active');
   }
+  
+
   function hideModal() {
     modal.classList.remove('active');
   }
@@ -168,11 +193,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const password = document.getElementById('login-password').value;
     fetch('/api/verifyPassword', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password })
     }).then(response => response.json())
       .then(data => {
-        if(data.success){
+        if (data.success) {
           loginModal.classList.remove('active');
           editorLoginBtn.style.display = "none";
           editorButtons.style.display = "block";
@@ -184,6 +209,53 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error('Error verifying password', err);
         loginError.style.display = "block";
       });
+  });
+  const articleSelectionModal = document.getElementById('article-selection-modal');
+  const closeArticleSelectionModal = document.getElementById('close-article-selection-modal');
+  const articleSelectionList = document.getElementById('article-selection-list');
+  function loadArticleSelection(callback) {
+    fetch('/api/articles')
+      .then(response => response.json())
+      .then(articles => {
+        articleSelectionList.innerHTML = "";
+        articles.forEach(article => {
+          const item = document.createElement('div');
+          item.classList.add('article-selection-item');
+          item.innerHTML = `<strong>${article.title}</strong>`;
+          item.dataset.id = article.id;
+          item.addEventListener('click', function () {
+            if (articleSelectionModal.dataset.for === "child") {
+              selectedArticleId = article.id;
+              document.getElementById('selected-article-text').textContent = `Статья: ${article.title}`;
+              articleSelectionModal.classList.remove('active');
+              document.getElementById('add-child-modal').classList.add('active');
+            } else if (articleSelectionModal.dataset.for === "spouse") {
+              selectedArticleSpouseId = article.id;
+              document.getElementById('selected-article-spouse-text').textContent = `Статья: ${article.title}`;
+              articleSelectionModal.classList.remove('active');
+              document.getElementById('add-spouse-modal').classList.add('active');
+            }
+          });
+          articleSelectionList.appendChild(item);
+        });
+        if (callback) callback();
+      })
+      .catch(err => console.error("Error loading articles for selection", err));
+  }
+  document.getElementById('choose-article-btn').addEventListener('click', function () {
+    document.getElementById('add-child-modal').classList.remove('active');
+    articleSelectionModal.dataset.for = "child";
+    loadArticleSelection();
+    articleSelectionModal.classList.add('active');
+  });
+  document.getElementById('choose-article-spouse-btn').addEventListener('click', function () {
+    document.getElementById('add-spouse-modal').classList.remove('active');
+    articleSelectionModal.dataset.for = "spouse";
+    loadArticleSelection();
+    articleSelectionModal.classList.add('active');
+  });
+  closeArticleSelectionModal.addEventListener('click', function () {
+    articleSelectionModal.classList.remove('active');
   });
   const wrapper = document.getElementById('tree-container-wrapper');
   const treeContainer = document.getElementById('tree-container');
@@ -248,7 +320,7 @@ document.addEventListener("DOMContentLoaded", function () {
       initialCenterX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
       initialCenterY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
     }
-  }, {passive: false});
+  }, { passive: false });
   wrapper.addEventListener('touchmove', function (e) {
     e.preventDefault();
     if (e.touches.length === 1 && isDragging) {
@@ -272,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function () {
       scale = newScale;
       updateTransform();
     }
-  }, {passive: false});
+  }, { passive: false });
   wrapper.addEventListener('touchend', function (e) {
     if (e.touches.length === 0) {
       isDragging = false;
@@ -297,8 +369,11 @@ document.addEventListener("DOMContentLoaded", function () {
     submitChildBtn.textContent = "Сохранить";
     chooseParentBtn.style.display = "inline-block";
     chooseParentBtn.textContent = "Выбрать родителя";
+    document.getElementById('choose-article-btn').style.display = "inline-block";
+    document.getElementById('selected-article-text').textContent = "Статья не выбрана";
     selectedParentId = null;
     selectedParentText.textContent = "Родитель не выбран";
+    selectedArticleId = null;
     document.querySelector('#add-child-modal h2').textContent = "Добавить ребенка";
     addChildModal.classList.add('active');
   });
@@ -346,6 +421,9 @@ document.addEventListener("DOMContentLoaded", function () {
       parentId: isEditing ? personById[currentPersonId].parentId : selectedParentId,
       children: []
     };
+    if (selectedArticleId) {
+      newChild.articleId = selectedArticleId;
+    }
     if (!isEditing) {
       if (selectedParentId && personById[selectedParentId]) {
         let parent = personById[selectedParentId];
@@ -377,10 +455,13 @@ document.addEventListener("DOMContentLoaded", function () {
       person.profession = newChild.profession;
       person.birthPlace = newChild.birthPlace;
       person.bio = newChild.bio;
+      person.articleId = newChild.articleId;
     }
     addChildForm.reset();
     selectedParentId = null;
     selectedParentText.textContent = "Родитель не выбран";
+    selectedArticleId = null;
+    document.getElementById('selected-article-text').textContent = "Статья не выбрана";
     addChildModal.classList.remove('active');
     personIdCounter = 0;
     Object.keys(personById).forEach(key => delete personById[key]);
@@ -389,7 +470,6 @@ document.addEventListener("DOMContentLoaded", function () {
     isEditing = false;
     submitChildBtn.textContent = "Сохранить";
     chooseParentBtn.style.display = "inline-block";
-    chooseParentBtn.textContent = "Выбрать родителя";
     document.querySelector('#add-child-modal h2').textContent = "Добавить ребенка";
   });
   const addSpouseBtn = document.getElementById('add-spouse-btn');
@@ -403,6 +483,8 @@ document.addEventListener("DOMContentLoaded", function () {
     addSpouseForm.reset();
     submitSpouseBtn.textContent = "Сохранить";
     chooseSpouseBtn.style.display = "inline-block";
+    document.getElementById('choose-article-spouse-btn').style.display = "inline-block";
+    document.getElementById('selected-article-spouse-text').textContent = "Статья не выбрана";
     document.querySelector('#add-spouse-modal h2').textContent = "Добавить супруга(-у)";
     addSpouseModal.classList.add('active');
   });
@@ -448,6 +530,9 @@ document.addEventListener("DOMContentLoaded", function () {
       bio: document.getElementById('new-spouse-bio').value,
       isSpouse: true
     };
+    if (selectedArticleSpouseId) {
+      spouseData.articleId = selectedArticleSpouseId;
+    }
     if (isEditing && selectedSpouseId) {
       let parentObj = null;
       function findParentOfSpouse(spouseId, nodes) {
@@ -474,6 +559,7 @@ document.addEventListener("DOMContentLoaded", function () {
     addSpouseForm.reset();
     selectedSpouseId = null;
     selectedSpouseText.textContent = "Супруг(а) не выбран";
+    document.getElementById('selected-article-spouse-text').textContent = "Статья не выбрана";
     addSpouseModal.classList.remove('active');
     personIdCounter = 0;
     Object.keys(personById).forEach(key => delete personById[key]);
@@ -489,38 +575,38 @@ document.addEventListener("DOMContentLoaded", function () {
   const panStep = 50;
   const zoomStep = 1.1;
   if (navUp) {
-    navUp.addEventListener("click", function() {
+    navUp.addEventListener("click", function () {
       translateY -= panStep;
       updateTransform();
     });
   }
   if (navDown) {
-    navDown.addEventListener("click", function() {
+    navDown.addEventListener("click", function () {
       translateY += panStep;
       updateTransform();
     });
   }
   if (navLeft) {
-    navLeft.addEventListener("click", function() {
+    navLeft.addEventListener("click", function () {
       translateX -= panStep;
       updateTransform();
     });
   }
   if (navRight) {
-    navRight.addEventListener("click", function() {
+    navRight.addEventListener("click", function () {
       translateX += panStep;
       updateTransform();
     });
   }
   if (zoomPlus) {
-    zoomPlus.addEventListener("click", function() {
+    zoomPlus.addEventListener("click", function () {
       scale *= zoomStep;
       if (scale > maxScale) scale = maxScale;
       updateTransform();
     });
   }
   if (zoomMinus) {
-    zoomMinus.addEventListener("click", function() {
+    zoomMinus.addEventListener("click", function () {
       scale /= zoomStep;
       if (scale < minScale) scale = minScale;
       updateTransform();
@@ -529,7 +615,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const editBtn = document.getElementById("edit-btn");
   const deleteBtn = document.getElementById("delete-btn");
   if (editBtn) {
-    editBtn.addEventListener("click", function() {
+    editBtn.addEventListener("click", function () {
       if (currentPersonId !== null && personById[currentPersonId]) {
         const person = personById[currentPersonId];
         if (person.isSpouse) {
@@ -539,6 +625,12 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById('new-spouse-profession').value = person.profession;
           document.getElementById('new-spouse-birthPlace').value = person.birthPlace;
           document.getElementById('new-spouse-bio').value = person.bio;
+          if (person.articleId) {
+            selectedArticleSpouseId = person.articleId;
+            document.getElementById('selected-article-spouse-text').textContent = `Статья ID: ${person.articleId}`;
+          } else {
+            document.getElementById('selected-article-spouse-text').textContent = "Статья не выбрана";
+          }
           isEditing = true;
           selectedSpouseId = currentPersonId;
           addSpouseModal.classList.add('active');
@@ -553,6 +645,12 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById('new-profession').value = person.profession;
           document.getElementById('new-birthPlace').value = person.birthPlace;
           document.getElementById('new-bio').value = person.bio;
+          if (person.articleId) {
+            selectedArticleId = person.articleId;
+            document.getElementById('selected-article-text').textContent = `Статья ID: ${person.articleId}`;
+          } else {
+            document.getElementById('selected-article-text').textContent = "Статья не выбрана";
+          }
           isEditing = true;
           addChildModal.classList.add('active');
           modal.classList.remove('active');
@@ -570,7 +668,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   if (deleteBtn) {
-    deleteBtn.addEventListener("click", function() {
+    deleteBtn.addEventListener("click", function () {
       if (currentPersonId !== null) {
         function removePersonById(id, nodes) {
           for (let i = 0; i < nodes.length; i++) {
@@ -608,7 +706,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
   const expandBtn = document.getElementById("expand-container-btn");
-  expandBtn.addEventListener("click", function() {
+  expandBtn.addEventListener("click", function () {
     const container = document.getElementById("tree-container-wrapper");
     container.classList.toggle("expanded");
     if (container.classList.contains("expanded")) {
