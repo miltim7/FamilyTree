@@ -10,12 +10,22 @@ document.addEventListener("DOMContentLoaded", function () {
   let treeData = [];
   let scale = 1, translateX = 0, translateY = 0;
   const minScale = 0.3, maxScale = 2;
-  
   function updateTransform() {
     const treeContainer = document.getElementById('tree-container');
     treeContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
   }
-  
+  function findParentBySpouseId(spouseId, nodes) {
+    for (let i = 0; i < nodes.length; i++) {
+      if (nodes[i].spouse && nodes[i].spouse.id == spouseId) {
+        return nodes[i];
+      }
+      if (nodes[i].children && nodes[i].children.length) {
+        let found = findParentBySpouseId(spouseId, nodes[i].children);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
   function generateTree(nodes) {
     let html = '<ul>';
     nodes.forEach(node => {
@@ -55,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
     html += '</ul>';
     return html;
   }
-  
   function loadTreeData() {
     fetch("treeData.json")
       .then(response => response.json())
@@ -74,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch(error => console.error("Ошибка загрузки treeData.json:", error));
   }
   loadTreeData();
-  
   const treeRoot = document.getElementById("tree-root");
   treeRoot.addEventListener('click', function (e) {
     const card = e.target.closest('.person-card');
@@ -100,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   });
-  
   const modal = document.getElementById('person-modal');
   function showModal(person) {
     document.getElementById('modal-photo').src = person.img;
@@ -135,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
   modal.addEventListener('click', function (e) {
     if (e.target === modal) hideModal();
   });
-  
   const wrapper = document.getElementById('tree-container-wrapper');
   const treeContainer = document.getElementById('tree-container');
   let isDragging = false, startX, startY;
@@ -238,8 +244,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const dy = touch2.clientY - touch1.clientY;
     return Math.sqrt(dx * dx + dy * dy);
   }
-  
-  // Форма добавления/редактирования ребенка
   const addChildBtn = document.getElementById('add-child-btn');
   const addChildModal = document.getElementById('add-child-modal');
   const closeAddModal = document.getElementById('close-add-modal');
@@ -247,12 +251,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const chooseParentBtn = document.getElementById('choose-parent-btn');
   const selectedParentText = document.getElementById('selected-parent-text');
   const submitChildBtn = document.getElementById('submit-child-btn');
-  
   addChildBtn.addEventListener('click', function () {
     isEditing = false;
     addChildForm.reset();
     submitChildBtn.textContent = "Сохранить";
-    // В режиме добавления кнопка выбора родителя видна
     chooseParentBtn.style.display = "inline-block";
     chooseParentBtn.textContent = "Выбрать родителя";
     selectedParentId = null;
@@ -260,12 +262,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector('#add-child-modal h2').textContent = "Добавить ребенка";
     addChildModal.classList.add('active');
   });
-  
   closeAddModal.addEventListener('click', function () {
     addChildModal.classList.remove('active');
   });
-  
-  // При редактировании ребенка не разрешаем менять родителя – кнопку скрываем
   chooseParentBtn.addEventListener('click', function () {
     if (!isEditing) {
       addChildModal.classList.remove('active');
@@ -273,7 +272,6 @@ document.addEventListener("DOMContentLoaded", function () {
       isSelectingParent = true;
     }
   });
-  
   addChildForm.addEventListener('submit', function (e) {
     e.preventDefault();
     if (document.getElementById('new-name').value.trim() === "") {
@@ -292,9 +290,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (isEditing && personById[currentPersonId] && personById[currentPersonId].img) {
         newImg = personById[currentPersonId].img;
       } else {
-        newImg = document.getElementById('new-gender').value === "Мужской" 
-          ? "images/default_male.jpg" 
-          : "images/default_female.jpg";
+        newImg = document.getElementById('new-gender').value === "Мужской" ? "images/default_male.jpg" : "images/default_female.jpg";
       }
     }
     const newChild = {
@@ -312,7 +308,13 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     if (!isEditing) {
       if (selectedParentId && personById[selectedParentId]) {
-        const parent = personById[selectedParentId];
+        let parent = personById[selectedParentId];
+        if (parent.isSpouse) {
+          let mainParent = findParentBySpouseId(selectedParentId, treeData);
+          if (mainParent) {
+            parent = mainParent;
+          }
+        }
         if (parent.gender === "Мужской") {
           newChild.parentRole = "Папа";
           newChild.father = parent.name;
@@ -320,7 +322,7 @@ document.addEventListener("DOMContentLoaded", function () {
           newChild.parentRole = "Мама";
           newChild.mother = parent.name;
         }
-        newChild.parentId = selectedParentId;
+        newChild.parentId = parent.id;
         if (!parent.children) parent.children = [];
         parent.children.push(newChild);
       } else {
@@ -335,7 +337,6 @@ document.addEventListener("DOMContentLoaded", function () {
       person.profession = newChild.profession;
       person.birthPlace = newChild.birthPlace;
       person.bio = newChild.bio;
-      // Родительская связь не меняется при редактировании
     }
     addChildForm.reset();
     selectedParentId = null;
@@ -350,8 +351,6 @@ document.addEventListener("DOMContentLoaded", function () {
     chooseParentBtn.textContent = "Выбрать родителя";
     document.querySelector('#add-child-modal h2').textContent = "Добавить ребенка";
   });
-  
-  // Форма добавления/редактирования супруга – изменение связи не разрешается
   const addSpouseBtn = document.getElementById('add-spouse-btn');
   const addSpouseModal = document.getElementById('add-spouse-modal');
   const closeSpouseModal = document.getElementById('close-spouse-modal');
@@ -359,30 +358,23 @@ document.addEventListener("DOMContentLoaded", function () {
   const chooseSpouseBtn = document.getElementById('choose-spouse-btn');
   const selectedSpouseText = document.getElementById('selected-spouse-text');
   const submitSpouseBtn = document.getElementById('submit-spouse-btn');
-  
   addSpouseBtn.addEventListener('click', function () {
     addSpouseForm.reset();
     submitSpouseBtn.textContent = "Сохранить";
-    // В режиме добавления показываем кнопку выбора супруга,
-    // но при редактировании её скрываем, чтобы связь не менялась
     chooseSpouseBtn.style.display = "inline-block";
     document.querySelector('#add-spouse-modal h2').textContent = "Добавить супруга(-у)";
     addSpouseModal.classList.add('active');
   });
-  
   closeSpouseModal.addEventListener('click', function () {
     addSpouseModal.classList.remove('active');
   });
-  
   chooseSpouseBtn.addEventListener('click', function () {
-    // Разрешаем выбор супруга только в режиме добавления
     if (!isEditing) {
       addSpouseModal.classList.remove('active');
       selectedSpouseText.textContent = "Выберите супруга(-у)...";
       isSelectingSpouse = true;
     }
   });
-  
   addSpouseForm.addEventListener('submit', function (e) {
     e.preventDefault();
     if (document.getElementById('new-spouse-name').value.trim() === "") {
@@ -402,9 +394,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (isEditing && existingSpouse && existingSpouse.img) {
         newSpouseImg = existingSpouse.img;
       } else {
-        newSpouseImg = document.getElementById('new-spouse-gender').value === "Мужской" 
-          ? "images/default_male.jpg" 
-          : "images/default_female.jpg";
+        newSpouseImg = document.getElementById('new-spouse-gender').value === "Мужской" ? "images/default_male.jpg" : "images/default_female.jpg";
       }
     }
     const spouseData = {
@@ -418,7 +408,6 @@ document.addEventListener("DOMContentLoaded", function () {
       isSpouse: true
     };
     if (isEditing && selectedSpouseId) {
-      // При редактировании не разрешаем смену связи, просто обновляем данные
       let parentObj = null;
       function findParentOfSpouse(spouseId, nodes) {
         for (let i = 0; i < nodes.length; i++) {
@@ -449,7 +438,6 @@ document.addEventListener("DOMContentLoaded", function () {
     Object.keys(personById).forEach(key => delete personById[key]);
     treeRoot.innerHTML = generateTree(treeData);
   });
-  
   const navUp = document.querySelector(".navigation-controls .up");
   const navDown = document.querySelector(".navigation-controls .down");
   const navLeft = document.querySelector(".navigation-controls .left");
@@ -496,7 +484,6 @@ document.addEventListener("DOMContentLoaded", function () {
       updateTransform();
     });
   }
-  
   const editBtn = document.getElementById("edit-btn");
   const deleteBtn = document.getElementById("delete-btn");
   if (editBtn) {
@@ -516,7 +503,6 @@ document.addEventListener("DOMContentLoaded", function () {
           modal.classList.remove('active');
           submitSpouseBtn.textContent = "Сохранить";
           document.querySelector('#add-spouse-modal h2').textContent = "Редактировать супруга(-у)";
-          // Убираем возможность смены супруги при редактировании
           chooseSpouseBtn.style.display = "none";
         } else {
           document.getElementById('new-name').value = person.name;
@@ -536,13 +522,11 @@ document.addEventListener("DOMContentLoaded", function () {
           } else {
             selectedParentText.textContent = "Родитель не выбран";
           }
-          // Убираем возможность смены родителя при редактировании
           chooseParentBtn.style.display = "none";
         }
       }
     });
   }
-  
   if (deleteBtn) {
     deleteBtn.addEventListener("click", function() {
       if (currentPersonId !== null) {
@@ -580,7 +564,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
-  
   const expandBtn = document.getElementById("expand-container-btn");
   expandBtn.addEventListener("click", function() {
     const container = document.getElementById("tree-container-wrapper");
