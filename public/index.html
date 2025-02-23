@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Binary Tree Structure</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/blog.css">
+  <link rel="stylesheet" href="css/drevo.css">
+  <link rel="stylesheet" href="css/modals.css">
+  <script defer src="js/script.js"></script>
+  <script defer src="js/header.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a class="logo" href="/">Шуховцевы-Шуховцевы</a>
+      <nav class="nav-links">
+        <a href="#container">Семейное древо</a>
+        <a href="#blog">Статьи</a>
+      </nav>
+      <div class="contacts">
+        <p>По любым вопросам</p>
+        <img src="images/right-arrow.png" alt="Arrow">
+        <a href="https://vk.com/"><img src="images/vk.svg" alt="VK"></a>
+        <a href="https://api.whatsapp.com/send/?phone=79000880989&amp;text=...">
+          <img src="images/wp.svg" alt="WhatsApp">
+        </a>
+      </div>
+      <div class="burger" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-content">
+        <a class="logo" href="/">Шуховцевы-Шуховцевы</a>
+        <nav class="mobile-nav-links">
+          <a href="#container">Семейное древо</a>
+          <a href="#blog">Статьи</a>
+        </nav>
+        <div class="contacts">
+          <div>
+            <p>По любым вопросам</p>
+            <img style="width: 20px;" class="arrow" src="images/right-arrow.png" alt="Arrow">
+          </div>
+          <div>
+            <a href="https://vk.com/"><img class="social-icon" src="images/vk.svg" alt="VK"></a>
+            <a href="https://api.whatsapp.com/send/?phone=79000880989&amp;text=..."><img class="social-icon" src="images/wp.svg" alt="WhatsApp"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-blur">
+      <div class="hero-content">
+        <h1>Добро пожаловать на сайт, посвященный родословной семьи Шуховцевых!</h1>
+        <p>Здесь вы сможете узнать о богатой истории и наследии семьи, исследовать генеалогическое древо и прочитать статьи о предках. История семьи Шуховцевых — это наша общая память!</p>
+        <div class="hero-buttons">
+          <a href="#container" class="hero-btn">Семейное Древо</a>
+          <a href="#blog" class="hero-btn second">Статьи</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Container (Древо) -->
+  <section id="container" class="container-section">
+    <div class="container-controls">
+      <div class="container-buttons">
+        <button id="editor-login-btn">Войти в редактор</button>
+        <div id="editor-buttons" style="display: none;">
+          <button id="add-child-btn">Добавить ребенка</button>
+          <button id="add-spouse-btn">Добавить супруга(-а)</button>
+        </div>
+      </div>
+      <div class="navigation-controls">
+        <button class="nav-btn up">↑</button>
+        <button class="nav-btn left">←</button>
+        <button class="nav-btn down">↓</button>
+        <button class="nav-btn right">→</button>
+        <button class="zoom-btn plus">+</button>
+        <button class="zoom-btn minus">−</button>
+      </div>
+    </div>
+    <div class="tree-scroll-wrapper">
+      <div id="tree-container-wrapper">
+        <div id="tree-container">
+          <div class="tree" id="tree-root"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section id="blog" class="blog-section">
+    <div class="blog-container">
+      <a href="#" class="blog-card">
+        <img src="images/blog1.jpg" alt="Blog 1">
+        <div class="blog-meta">Travel Wednesday, June 25</div>
+        <div class="blog-title">Why every designer should visit Rotterdam?</div>
+        <div class="blog-desc">
+          After initial crisis re-construction the center of Rotterdam has become the site of ambitious new architecture.
+        </div>
+      </a>
+      <a href="#" class="blog-card">
+        <img src="images/blog1.jpg" alt="Blog 2">
+        <div class="blog-meta">Fashion Tuesday, May 18</div>
+        <div class="blog-title">The rise of sustainable style</div>
+        <div class="blog-desc">
+          Exploring the trends that are reshaping fashion in the modern world.
+        </div>
+      </a>
+      <a href="#" class="blog-card">
+        <img src="images/blog1.jpg" alt="Blog 3">
+        <div class="blog-meta">Food Friday, April 14</div>
+        <div class="blog-title">A taste of local cuisine</div>
+        <div class="blog-desc">
+          Discovering hidden culinary gems in unexpected places.
+        </div>
+      </a>
+      <a href="#" class="blog-card">
+        <img src="images/blog1.jpg" alt="Blog 4">
+        <div class="blog-meta">Travel Monday, March 8</div>
+        <div class="blog-title">Exploring off-the-beaten-path destinations</div>
+        <div class="blog-desc">
+          How adventure awaits beyond the usual tourist spots.
+        </div>
+      </a>
+      <a href="#" class="blog-card">
+        <img src="images/blog1.jpg" alt="Blog 5">
+        <div class="blog-meta">Design Saturday, February 20</div>
+        <div class="blog-title">Innovative trends in modern design</div>
+        <div class="blog-desc">
+          A deep dive into the creative world of cutting-edge design concepts.
+        </div>
+      </a>
+      <a href="#" class="blog-card">
+        <img src="images/blog1.jpg" alt="Blog 6">
+        <div class="blog-meta">Culture Sunday, January 10</div>
+        <div class="blog-title">Embracing diversity in urban spaces</div>
+        <div class="blog-desc">
+          How cultural fusion is transforming cities around the globe.
+        </div>
+      </a>
+    </div>
+  </section>
+  
+  <!-- Modals -->
+  <div class="modal" id="person-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-modal">&times;</span>
+      <div class="modal-header">
+        <img src="" alt="Фото" id="modal-photo">
+        <h2 id="modal-name"></h2>
+      </div>
+      <div class="modal-body">
+        <div class="info-row"><strong>Пол:</strong> <span id="modal-gender"></span></div>
+        <div class="info-row"><strong>Годы жизни:</strong> <span id="modal-years"></span></div>
+        <div class="info-row"><strong>Профессия:</strong> <span id="modal-profession"></span></div>
+        <div class="info-row"><strong>Место рождения:</strong> <span id="modal-birthPlace"></span></div>
+        <div class="info-row"><strong>Биография:</strong> <span id="modal-bio"></span></div>
+        <div class="info-row"><strong id="modal-father-label">Отец:</strong> <span id="modal-father"></span></div>
+        <div class="info-row"><strong id="modal-mother-label">Мать:</strong> <span id="modal-mother"></span></div>
+        <div class="info-row"><strong>Дети:</strong> <span id="modal-children"></span></div>
+      </div>
+      <div class="modal-actions">
+        <button id="edit-btn">Редактировать</button>
+        <button id="delete-btn">Удалить</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="add-child-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-add-modal">&times;</span>
+      <h2>Добавить ребенка</h2>
+      <form id="add-child-form">
+        <div class="form-row">
+          <label>ФИО:</label>
+          <input type="text" id="new-name" required>
+        </div>
+        <div class="form-row">
+          <label>Годы жизни:</label>
+          <input type="text" id="new-years">
+        </div>
+        <div class="form-row">
+          <label>Пол:</label>
+          <select id="new-gender">
+            <option value="Мужской">Мужской</option>
+            <option value="Женский">Женский</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Профессия:</label>
+          <input type="text" id="new-profession">
+        </div>
+        <div class="form-row">
+          <label>Место рождения:</label>
+          <input type="text" id="new-birthPlace">
+        </div>
+        <div class="form-row">
+          <label>Биография:</label>
+          <textarea id="new-bio" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <label>Фото:</label>
+          <input type="file" id="new-photo" accept="image/*">
+        </div>
+        <div class="form-row">
+          <button type="button" id="choose-parent-btn">Выбрать родителя</button>
+          <span id="selected-parent-text">Родитель не выбран</span>
+        </div>
+        <div class="form-row">
+          <button type="submit" id="submit-child-btn">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="add-spouse-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-spouse-modal">&times;</span>
+      <h2>Добавить супруга(-у)</h2>
+      <form id="add-spouse-form">
+        <div class="form-row">
+          <label>ФИО:</label>
+          <input type="text" id="new-spouse-name" required>
+        </div>
+        <div class="form-row">
+          <label>Годы жизни:</label>
+          <input type="text" id="new-spouse-years">
+        </div>
+        <div class="form-row">
+          <label>Пол:</label>
+          <select id="new-spouse-gender">
+            <option value="Мужской">Мужской</option>
+            <option value="Женский">Женский</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label>Профессия:</label>
+          <input type="text" id="new-spouse-profession">
+        </div>
+        <div class="form-row">
+          <label>Место рождения:</label>
+          <input type="text" id="new-spouse-birthPlace">
+        </div>
+        <div class="form-row">
+          <label>Биография:</label>
+          <textarea id="new-spouse-bio" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <label>Фото:</label>
+          <input type="file" id="new-spouse-photo" accept="image/*">
+        </div>
+        <div class="form-row">
+          <button type="button" id="choose-spouse-btn">Выбрать супруга(-у)</button>
+          <span id="selected-spouse-text">Супруг(а) не выбран</span>
+        </div>
+        <div class="form-row">
+          <button type="submit" id="submit-spouse-btn">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="login-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-login-modal">&times;</span>
+      <h2>Введите пароль для редактирования</h2>
+      <form id="login-form">
+        <div class="form-row">
+          <label>Пароль:</label>
+          <input type="password" id="login-password" required>
+        </div>
+        <div class="form-row">
+          <button type="submit" id="login-submit-btn">Войти</button>
+        </div>
+      </form>
+      <div id="login-error" style="color: red; display: none;">Неверный пароль!</div>
+    </div>
+  </div>
+</body>
+</html>

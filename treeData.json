@@ -27,7 +27,9 @@
           "years": "1967-",
           "profession": "Учительница",
           "birthPlace": "Город Гамма",
-          "bio": "Добрая и отзывчивая."
+          "bio": "Добрая и отзывчивая.",
+          "id": 2,
+          "isSpouse": true
         },
         "children": [
           {
@@ -48,8 +50,11 @@
               "years": "1992-",
               "profession": "Дизайнер",
               "birthPlace": "Город Эпсилон",
-              "bio": "Креативная и энергичная."
-            }
+              "bio": "Креативная и энергичная.",
+              "id": 4,
+              "isSpouse": true
+            },
+            "id": 3
           },
           {
             "img": "images/default_male.jpg",
@@ -61,9 +66,38 @@
             "bio": "Рациональный и аналитичный.",
             "father": "Алексей",
             "mother": "Ольга",
-            "children": []
+            "children": [
+              {
+                "img": "images/default_male.jpg",
+                "name": "пидорас",
+                "gender": "Мужской",
+                "years": "12",
+                "profession": "",
+                "birthPlace": "",
+                "bio": "",
+                "father": "Сергей",
+                "mother": "",
+                "parentId": 5,
+                "children": [],
+                "parentRole": "Папа",
+                "id": 7
+              }
+            ],
+            "id": 5,
+            "spouse": {
+              "img": "images/default_male.jpg",
+              "name": "мать пидораса",
+              "gender": "Мужской",
+              "years": "",
+              "profession": "",
+              "birthPlace": "",
+              "bio": "",
+              "isSpouse": true,
+              "id": 6
+            }
           }
-        ]
+        ],
+        "id": 1
       },
       {
         "img": "images/default_female.jpg",
@@ -82,7 +116,9 @@
           "years": "1968-",
           "profession": "Предприниматель",
           "birthPlace": "Город Каппа",
-          "bio": "Энергичный и инициативный."
+          "bio": "Энергичный и инициативный.",
+          "id": 9,
+          "isSpouse": true
         },
         "children": [
           {
@@ -95,7 +131,8 @@
             "bio": "Внимательная и добрая.",
             "father": "Сергей",
             "mother": "Мария",
-            "children": []
+            "children": [],
+            "id": 10
           },
           {
             "img": "images/default_male.jpg",
@@ -107,9 +144,11 @@
             "bio": "Технически подкованный.",
             "father": "Сергей",
             "mother": "Мария",
-            "children": []
+            "children": [],
+            "id": 11
           }
-        ]
+        ],
+        "id": 8
       },
       {
         "img": "images/default_male.jpg",
@@ -128,7 +167,9 @@
           "years": "1977-",
           "profession": "Писательница",
           "birthPlace": "Город Пи",
-          "bio": "Творческая и мечтательная."
+          "bio": "Творческая и мечтательная.",
+          "id": 13,
+          "isSpouse": true
         },
         "children": [
           {
@@ -141,7 +182,8 @@
             "bio": "Увлекается технологиями.",
             "father": "Игорь",
             "mother": "Наталья",
-            "children": []
+            "children": [],
+            "id": 14
           },
           {
             "img": "images/default_female.jpg",
@@ -161,11 +203,16 @@
               "years": "2002-",
               "profession": "Архитектор",
               "birthPlace": "Город Тета",
-              "bio": "Творческий и амбициозный."
-            }
+              "bio": "Творческий и амбициозный.",
+              "id": 16,
+              "isSpouse": true
+            },
+            "id": 15
           }
-        ]
+        ],
+        "id": 12
       }
-    ]
+    ],
+    "id": 0
   }
 ]
