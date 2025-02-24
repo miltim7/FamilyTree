@@ -1,6 +1,6 @@
 /* Скрывающий класс */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* Основной контейнер страницы статей */

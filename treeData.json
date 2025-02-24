@@ -1,6 +1,6 @@
 [
   {
-    "img": "blob:http://localhost:3000/708a00c2-13e7-4feb-90b1-44419d9619a8",
+    "img": "images/default_male.jpg",
     "name": "Тимур",
     "gender": "Мужской",
     "years": "1940-2023",
@@ -43,7 +43,24 @@
             "bio": "Талантливый IT-специалист.",
             "father": "Алексей",
             "mother": "Ольга",
-            "children": [],
+            "children": [
+              {
+                "img": "images/default_male.jpg",
+                "name": "Ребенок1",
+                "gender": "Мужской",
+                "years": "1900-2000",
+                "profession": "",
+                "birthPlace": "",
+                "bio": "",
+                "father": "Дмитрий",
+                "mother": "",
+                "parentId": 3,
+                "children": [],
+                "parentRole": "Папа",
+                "id": 5,
+                "articleId": 1
+              }
+            ],
             "spouse": {
               "img": "images/default_female.jpg",
               "name": "Ирина",
@@ -68,7 +85,7 @@
             "father": "Алексей",
             "mother": "Ольга",
             "children": [],
-            "id": 5,
+            "id": 6,
             "spouse": {
               "img": "images/default_male.jpg",
               "name": "жена сергея",
@@ -78,7 +95,7 @@
               "birthPlace": "",
               "bio": "",
               "isSpouse": true,
-              "id": 6
+              "id": 7
             }
           }
         ],
@@ -103,7 +120,7 @@
           "profession": "Предприниматель",
           "birthPlace": "Город Каппа",
           "bio": "Энергичный и инициативный.",
-          "id": 8,
+          "id": 9,
           "isSpouse": true
         },
         "children": [
@@ -118,7 +135,7 @@
             "father": "Сергей",
             "mother": "Мария",
             "children": [],
-            "id": 9
+            "id": 10
           },
           {
             "img": "images/default_male.jpg",
@@ -131,7 +148,7 @@
             "father": "Сергей",
             "mother": "Мария",
             "children": [],
-            "id": 10,
+            "id": 11,
             "spouse": {
               "img": "images/default_female.jpg",
               "name": "Матильда",
@@ -141,11 +158,11 @@
               "birthPlace": "",
               "bio": "",
               "isSpouse": true,
-              "id": 11
+              "id": 12
             }
           }
         ],
-        "id": 7
+        "id": 8
       },
       {
         "img": "images/default_male.jpg",
@@ -165,7 +182,7 @@
           "profession": "Писательница",
           "birthPlace": "Город Пи",
           "bio": "Творческая и мечтательная.",
-          "id": 13,
+          "id": 14,
           "isSpouse": true
         },
         "children": [
@@ -180,7 +197,7 @@
             "father": "Игорь",
             "mother": "Наталья",
             "children": [],
-            "id": 14
+            "id": 15
           },
           {
             "img": "images/default_female.jpg",
@@ -201,13 +218,13 @@
               "profession": "Архитектор",
               "birthPlace": "Город Тета",
               "bio": "Творческий и амбициозный.",
-              "id": 16,
+              "id": 17,
               "isSpouse": true
             },
-            "id": 15
+            "id": 16
           }
         ],
-        "id": 12
+        "id": 13
       }
     ],
     "id": 0
