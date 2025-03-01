@@ -120,7 +120,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
   const modal = document.getElementById('person-modal');
-
   function showModal(person) {
     const modal = document.getElementById('person-modal');
     modal.querySelector('#modal-photo').src = person.img;
@@ -130,7 +129,6 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.querySelector('#modal-profession').textContent = person.profession;
     modal.querySelector('#modal-birthPlace').textContent = person.birthPlace;
     modal.querySelector('#modal-bio').textContent = person.bio;
-    
     if (person.parentRole === "Папа") {
       modal.querySelector('#modal-father-label').textContent = "Папа:";
     } else {
@@ -141,21 +139,14 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       modal.querySelector('#modal-mother-label').textContent = "Мать:";
     }
-    
     modal.querySelector('#modal-father').textContent = person.father || "";
     modal.querySelector('#modal-mother').textContent = person.mother || "";
-    modal.querySelector('#modal-children').textContent =
-      person.children && person.children.length
-        ? person.children.map(child => child.name).join(', ')
-        : "Нет данных";
-    
+    modal.querySelector('#modal-children').textContent = person.children && person.children.length ? person.children.map(child => child.name).join(', ') : "Нет данных";
     if (person.articleId) {
       modal.querySelector('#modal-article').innerHTML = `<a href="articles.html?id=${person.articleId}" target="_blank">Посмотреть статью</a>`;
     } else {
       modal.querySelector('#modal-article').textContent = "Нет данных";
     }
-    
-    // Проверяем, доступны ли кнопки редактирования/удаления (они показываются после успешного входа)
     const editorButtons = document.getElementById('editor-buttons');
     if (editorButtons && editorButtons.style.display === "block") {
       modal.querySelector('#edit-btn').style.display = "block";
@@ -164,11 +155,8 @@ document.addEventListener("DOMContentLoaded", function () {
       modal.querySelector('#edit-btn').style.display = "none";
       modal.querySelector('#delete-btn').style.display = "none";
     }
-    
     modal.classList.add('active');
   }
-  
-
   function hideModal() {
     modal.classList.remove('active');
   }
@@ -256,6 +244,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   closeArticleSelectionModal.addEventListener('click', function () {
     articleSelectionModal.classList.remove('active');
+    if (articleSelectionModal.dataset.for === "child") {
+      document.getElementById('add-child-modal').classList.add('active');
+    } else if (articleSelectionModal.dataset.for === "spouse") {
+      document.getElementById('add-spouse-modal').classList.add('active');
+    }
   });
   const wrapper = document.getElementById('tree-container-wrapper');
   const treeContainer = document.getElementById('tree-container');
@@ -296,11 +289,19 @@ document.addEventListener("DOMContentLoaded", function () {
       const offsetX = e.clientX - rect.left;
       const offsetY = e.clientY - rect.top;
       const zoomFactor = e.deltaY < 0 ? 1.1 : 0.9;
-      translateX = offsetX - zoomFactor * (offsetX - translateX);
-      translateY = offsetY - zoomFactor * (offsetY - translateY);
-      scale *= zoomFactor;
-      if (scale > maxScale) scale = maxScale;
-      if (scale < minScale) scale = minScale;
+      let newScale = scale * zoomFactor;
+      if (newScale > maxScale) {
+        if (scale >= maxScale) return;
+        newScale = maxScale;
+      }
+      if (newScale < minScale) {
+        if (scale <= minScale) return;
+        newScale = minScale;
+      }
+      const factor = newScale / scale;
+      translateX = offsetX - factor * (offsetX - translateX);
+      translateY = offsetY - factor * (offsetY - translateY);
+      scale = newScale;
       updateTransform();
     }
   });
@@ -421,6 +422,7 @@ document.addEventListener("DOMContentLoaded", function () {
       parentId: isEditing ? personById[currentPersonId].parentId : selectedParentId,
       children: []
     };
+    newChild.years = newChild.years.trim() ? newChild.years : "н/в";
     if (selectedArticleId) {
       newChild.articleId = selectedArticleId;
     }
@@ -530,6 +532,7 @@ document.addEventListener("DOMContentLoaded", function () {
       bio: document.getElementById('new-spouse-bio').value,
       isSpouse: true
     };
+    spouseData.years = spouseData.years.trim() ? spouseData.years : "н/в";
     if (selectedArticleSpouseId) {
       spouseData.articleId = selectedArticleSpouseId;
     }

@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": 1,
+    "title": "Статья 111",
+    "image": "/images/articles/1740836561967.jpeg",
+    "description": "",
+    "content": "sdc",
+    "visible": true
+  },
+  {
+    "id": 2,
+    "title": "Статья 2",
+    "image": "/images/articles/1740836838453.jpeg",
+    "description": "",
+    "content": "",
+    "visible": true
+  },
+  {
+    "id": 3,
+    "title": "Статья 3",
+    "image": "/images/articles/1740836546636.jpeg",
+    "description": "",
+    "content": "",
+    "visible": true
+  }
+]

@@ -1,14 +1,14 @@
 document.addEventListener("DOMContentLoaded", function(){
   let isAdmin = false;
-  let currentArticleImageUrl = ""; // сохраняем URL изображения при редактировании
+  let currentArticleImageUrl = "";
   const articlesContainer = document.getElementById("articles-container");
+  const paginationContainer = document.getElementById("pagination-container");
   const editorLoginBtn = document.getElementById("editor-login-btn");
   const loginModal = document.getElementById("login-modal");
   const closeLoginModal = document.getElementById("close-login-modal");
   const loginForm = document.getElementById("login-form");
   const loginPasswordInput = document.getElementById("login-password");
   const loginError = document.getElementById("login-error");
-
   const addArticleBtn = document.getElementById("add-article-btn");
   const articleModal = document.getElementById("article-modal");
   const closeArticleModal = document.getElementById("close-article-modal");
@@ -16,29 +16,38 @@ document.addEventListener("DOMContentLoaded", function(){
   const articleIdInput = document.getElementById("article-id");
   const articleTitleInput = document.getElementById("article-title");
   const articleImageInput = document.getElementById("article-image");
-  const articleMetaInput = document.getElementById("article-meta");
   const articleDescriptionInput = document.getElementById("article-description");
   const articleContentInput = document.getElementById("article-content");
   const articleModalTitle = document.getElementById("article-modal-title");
   const imagePreview = document.getElementById("article-image-preview");
   const imagePlaceholder = document.getElementById("article-image-placeholder");
-
+  const articleVisibleInput = document.getElementById("article-visible");
   const detailModal = document.getElementById("article-detail-modal");
   const closeArticleDetailModal = document.getElementById("close-article-detail-modal");
   const articleDetailContent = document.getElementById("article-detail-content");
-
+  let currentPage = 1;
+  const articlesPerPage = 9;
   function loadArticles(){
     fetch('/api/articles')
       .then(response => response.json())
       .then(data => {
-        renderArticles(data);
+        let visibleArticles = data.filter(article => article.visible !== false);
+        visibleArticles.sort((a, b) => b.id - a.id);
+        renderArticles(visibleArticles);
+        renderPaginationControls(visibleArticles);
       })
       .catch(err => console.error("Error loading articles", err));
   }
-
   function renderArticles(articles){
     articlesContainer.innerHTML = "";
-    articles.forEach(article => {
+    if(articles.length === 0){
+      articlesContainer.innerHTML = "<p>Нет статей</p>";
+      return;
+    }
+    const start = (currentPage - 1) * articlesPerPage;
+    const end = start + articlesPerPage;
+    const pageArticles = articles.slice(start, end);
+    pageArticles.forEach(article => {
       const card = document.createElement("div");
       card.classList.add("blog-card");
       const btnsHTML = isAdmin 
@@ -49,9 +58,9 @@ document.addEventListener("DOMContentLoaded", function(){
         : "";
       card.innerHTML = `
         <img src="${article.image ? article.image : 'images/default.jpg'}" alt="${article.title}">
-        <div class="blog-meta">${article.meta || ""}</div>
+        <div class="blog-meta"></div>
         <div class="blog-title">${article.title}</div>
-        <div class="blog-desc">${article.description || ""}</div>
+        <div class="blog-desc">${article.description ? article.description : ""}</div>
         ${btnsHTML}
       `;
       card.addEventListener('click', function(e){
@@ -72,10 +81,8 @@ document.addEventListener("DOMContentLoaded", function(){
             .then(article => {
               articleIdInput.value = article.id;
               articleTitleInput.value = article.title;
-              articleMetaInput.value = article.meta;
               articleDescriptionInput.value = article.description;
               articleContentInput.value = article.content;
-              // Сохраняем текущий URL изображения
               if(article.image){
                 currentArticleImageUrl = article.image;
                 imagePreview.src = article.image;
@@ -90,6 +97,8 @@ document.addEventListener("DOMContentLoaded", function(){
                 if(imagePlaceholder) imagePlaceholder.style.display = "block";
               }
               articleModalTitle.textContent = "Редактировать статью";
+              articleVisibleInput.checked = article.visible !== false;
+              articleImageInput.value = "";
               articleModal.classList.add("active");
             })
             .catch(err => console.error("Error fetching article", err));
@@ -107,33 +116,47 @@ document.addEventListener("DOMContentLoaded", function(){
       });
     }
   }
-
+  function renderPaginationControls(articles){
+    paginationContainer.innerHTML = "";
+    const totalPages = Math.ceil(articles.length / articlesPerPage);
+    if(totalPages <= 1){
+      paginationContainer.style.display = "none";
+      return;
+    }
+    paginationContainer.style.display = "block";
+    for(let i=1; i<=totalPages; i++){
+      const pageBtn = document.createElement("button");
+      pageBtn.textContent = i;
+      if(i === currentPage) pageBtn.disabled = true;
+      pageBtn.addEventListener("click", function(){
+        currentPage = i;
+        renderArticles(articles);
+      });
+      paginationContainer.appendChild(pageBtn);
+    }
+  }
   function openArticleDetailModal(article){
     articleDetailContent.innerHTML = `
       <img src="${article.image ? article.image : 'images/default.jpg'}" alt="${article.title}">
       <h2>${article.title}</h2>
-      <div class="blog-meta">${article.meta || ""}</div>
-      <p>${article.description || ""}</p>
-      <div>${article.content || ""}</div>
+      <div class="blog-meta"></div>
+      <p>${article.description ? article.description : ""}</p>
+      <div>${article.content ? article.content : ""}</div>
     `;
     detailModal.classList.add("active");
   }
-
   if(closeArticleDetailModal){
     closeArticleDetailModal.addEventListener("click", function(){
       detailModal.classList.remove("active");
     });
   }
-
   editorLoginBtn.addEventListener("click", function(){
     loginModal.classList.add("active");
   });
-
   document.getElementById("close-login-modal").addEventListener("click", function(){
     loginModal.classList.remove("active");
     loginError.style.display = "none";
   });
-
   loginForm.addEventListener("submit", function(e){
     e.preventDefault();
     const password = loginPasswordInput.value;
@@ -158,7 +181,6 @@ document.addEventListener("DOMContentLoaded", function(){
         loginError.style.display = "block";
       });
   });
-
   addArticleBtn.addEventListener("click", function(){
     articleIdInput.value = "";
     articleForm.reset();
@@ -171,13 +193,12 @@ document.addEventListener("DOMContentLoaded", function(){
       imagePlaceholder.style.display = "block";
     }
     articleModalTitle.textContent = "Добавить статью";
+    articleVisibleInput.checked = true;
     articleModal.classList.add("active");
   });
-
   closeArticleModal.addEventListener("click", function(){
     articleModal.classList.remove("active");
   });
-
   articleForm.addEventListener("submit", function(e){
     e.preventDefault();
     const uploadFile = articleImageInput.files[0];
@@ -185,11 +206,10 @@ document.addEventListener("DOMContentLoaded", function(){
       const articleData = {
         id: articleIdInput.value,
         title: articleTitleInput.value,
-        // Если imageUrl пустой, используем сохранённый currentArticleImageUrl (если есть)
         image: imageUrl !== "" ? imageUrl : currentArticleImageUrl,
-        meta: articleMetaInput.value,
         description: articleDescriptionInput.value,
-        content: articleContentInput.value
+        content: articleContentInput.value,
+        visible: articleVisibleInput.checked
       };
       let method = articleData.id ? 'PUT' : 'POST';
       let url = '/api/articles';
@@ -227,10 +247,7 @@ document.addEventListener("DOMContentLoaded", function(){
       submitArticle("");
     }
   });
-
   loadArticles();
-
-  // Предпросмотр изображения через input
   articleImageInput.addEventListener('change', function(){
     const file = this.files[0];
     if(file){
@@ -250,8 +267,6 @@ document.addEventListener("DOMContentLoaded", function(){
       if(imagePlaceholder) imagePlaceholder.style.display = "block";
     }
   });
-
-  // Drag & Drop для контейнера загрузки изображения
   const imageUploadContainer = document.querySelector(".image-upload-container");
   if(imageUploadContainer){
     imageUploadContainer.addEventListener('dragover', function(e){

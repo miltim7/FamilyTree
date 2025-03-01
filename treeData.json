@@ -12,7 +12,7 @@
     "children": [
       {
         "img": "images/default_male.jpg",
-        "name": "Алексейqqq",
+        "name": "Алексей Ананасов",
         "gender": "Мужской",
         "years": "1965-",
         "profession": "Инженер",
@@ -58,7 +58,18 @@
                 "children": [],
                 "parentRole": "Папа",
                 "id": 5,
-                "articleId": 1
+                "articleId": 1,
+                "spouse": {
+                  "img": "images/default_female.jpg",
+                  "name": "Супруга ребенка",
+                  "gender": "Женский",
+                  "years": "н/в",
+                  "profession": "",
+                  "birthPlace": "",
+                  "bio": "",
+                  "isSpouse": true,
+                  "id": 6
+                }
               }
             ],
             "spouse": {
@@ -85,7 +96,7 @@
             "father": "Алексей",
             "mother": "Ольга",
             "children": [],
-            "id": 6,
+            "id": 7,
             "spouse": {
               "img": "images/default_male.jpg",
               "name": "жена сергея",
@@ -95,7 +106,7 @@
               "birthPlace": "",
               "bio": "",
               "isSpouse": true,
-              "id": 7
+              "id": 8
             }
           }
         ],
@@ -120,7 +131,7 @@
           "profession": "Предприниматель",
           "birthPlace": "Город Каппа",
           "bio": "Энергичный и инициативный.",
-          "id": 9,
+          "id": 10,
           "isSpouse": true
         },
         "children": [
@@ -135,7 +146,7 @@
             "father": "Сергей",
             "mother": "Мария",
             "children": [],
-            "id": 10
+            "id": 11
           },
           {
             "img": "images/default_male.jpg",
@@ -148,7 +159,7 @@
             "father": "Сергей",
             "mother": "Мария",
             "children": [],
-            "id": 11,
+            "id": 12,
             "spouse": {
               "img": "images/default_female.jpg",
               "name": "Матильда",
@@ -158,11 +169,11 @@
               "birthPlace": "",
               "bio": "",
               "isSpouse": true,
-              "id": 12
+              "id": 13
             }
           }
         ],
-        "id": 8
+        "id": 9
       },
       {
         "img": "images/default_male.jpg",
@@ -182,7 +193,7 @@
           "profession": "Писательница",
           "birthPlace": "Город Пи",
           "bio": "Творческая и мечтательная.",
-          "id": 14,
+          "id": 15,
           "isSpouse": true
         },
         "children": [
@@ -197,7 +208,7 @@
             "father": "Игорь",
             "mother": "Наталья",
             "children": [],
-            "id": 15
+            "id": 16
           },
           {
             "img": "images/default_female.jpg",
@@ -218,13 +229,13 @@
               "profession": "Архитектор",
               "birthPlace": "Город Тета",
               "bio": "Творческий и амбициозный.",
-              "id": 17,
+              "id": 18,
               "isSpouse": true
             },
-            "id": 16
+            "id": 17
           }
         ],
-        "id": 13
+        "id": 14
       }
     ],
     "id": 0
