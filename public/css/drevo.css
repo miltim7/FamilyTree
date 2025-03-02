@@ -40,7 +40,7 @@
   text-align: center;
   list-style-type: none;
   position: relative;
-  padding: 30px;
+  padding: 40px 5px 0 5px;
   transition: 0.5s;
   vertical-align: top;
 }
@@ -52,8 +52,8 @@
   top: 0;
   right: 50%;
   border-top: 2px solid #c0a282;
-  width: 51%;
-  height: 30px;
+  width: 55%;
+  height: 40px;
 }
 
 .tree li::after {
@@ -133,9 +133,20 @@
   display: flex;
   gap: 10px;
   justify-content: center;
+  position: relative;
 }
 
-/* Изменённый блок управления древом - теперь позиционируется с помощью sticky */
+.spouse-cards::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 5px);
+  width: 10px;
+  height: 2px;
+  background: #c0a282;
+  transform: translateY(-50%);
+}
+
 .container-controls {
   display: flex;
   flex-wrap: wrap;
@@ -148,7 +159,6 @@
   z-index: 1;
   background-color: #303133;
 }
-
 
 .container-buttons button,
 .navigation-controls button {

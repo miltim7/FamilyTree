@@ -233,6 +233,22 @@
               "isSpouse": true
             },
             "id": 17
+          },
+          {
+            "img": "images/default_female.jpg",
+            "name": "Ребенок 90",
+            "gender": "Женский",
+            "years": "1900-2000",
+            "profession": "Доктор",
+            "birthPlace": "Белый Город",
+            "bio": "Нет биографии",
+            "father": "Игорь",
+            "mother": "",
+            "parentId": 14,
+            "children": [],
+            "parentRole": "Папа",
+            "id": 19,
+            "articleId": 1
           }
         ],
         "id": 14
