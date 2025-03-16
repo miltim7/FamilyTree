@@ -1,4 +1,4 @@
-/* Скрывающий класс */
+/* Скрывающий класс */ 
 .hidden {
   display: none !important;
 }
@@ -66,9 +66,9 @@
 /* Контейнер для карточек статей */
 .articles-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+  grid-template-columns: repeat(4, 300px);
   gap: 20px;
-  justify-items: start;
+  justify-content: center;
 }
 
 /* Карточка статьи */
@@ -200,7 +200,15 @@
 }
 
 /* Адаптивные стили */
+@media (max-width: 1024px) {
+  .articles-container {
+    grid-template-columns: repeat(2, 300px);
+  }
+}
 @media (max-width: 768px) {
+  .articles-container {
+    grid-template-columns: repeat(1, 300px);
+  }
   .articles-section h1 {
     font-size: 2rem;
   }

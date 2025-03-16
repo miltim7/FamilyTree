@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+  
   let personIdCounter = 0;
   const personById = {};
   let isSelectingParent = false;

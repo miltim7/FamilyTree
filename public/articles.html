@@ -28,8 +28,35 @@
           <img src="images/wp.svg" alt="WhatsApp">
         </a>
       </div>
+      <div class="burger" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <div class="mobile-menu-content">
+        <a class="logo" href="/">Шуховцевы-Шуховцевы</a>
+        <nav class="mobile-nav-links">
+          <a href="index.html">Семейное древо</a>
+          <a href="articles.html">Статьи</a>
+        </nav>
+        <div class="contacts">
+          <div>
+            <p>По любым вопросам</p>
+            <img style="width: 20px;" class="arrow" src="images/right-arrow.png" alt="Arrow">
+          </div>
+          <div>
+            <a href="https://vk.com/"><img class="social-icon" src="images/vk.svg" alt="VK"></a>
+            <a href="https://api.whatsapp.com/send/?phone=79000880989&amp;text=...">
+              <img class="social-icon" src="images/wp.svg" alt="WhatsApp">
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
+  
   <main class="articles-main">
     <section class="articles-section">
       <button id="editor-login-btn">Войти в редактор</button>
@@ -40,6 +67,7 @@
       <div id="pagination-container"></div>
     </section>
   </main>
+
   <div class="modal" id="login-modal">
     <div class="modal-content">
       <span class="close-modal" id="close-login-modal">&times;</span>

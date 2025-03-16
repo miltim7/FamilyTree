@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "title": "Статья 111",
+    "title": "Статья 1",
     "image": "/images/articles/1740836561967.jpeg",
     "description": "",
     "content": "sdc",
@@ -19,6 +19,38 @@
     "id": 3,
     "title": "Статья 3",
     "image": "/images/articles/1740836546636.jpeg",
+    "description": "Описание",
+    "content": "",
+    "visible": true
+  },
+  {
+    "id": 4,
+    "title": "Статья 4",
+    "image": "/images/articles/1742126513389.jpg",
+    "description": "",
+    "content": "",
+    "visible": true
+  },
+  {
+    "id": 5,
+    "title": "Статья 5",
+    "image": "/images/articles/1742126532315.jpeg",
+    "description": "",
+    "content": "",
+    "visible": true
+  },
+  {
+    "id": 6,
+    "title": "Статья 6",
+    "image": "/images/articles/1742126547774.jpeg",
+    "description": "",
+    "content": "",
+    "visible": true
+  },
+  {
+    "id": 7,
+    "title": "История любви",
+    "image": "/images/articles/1742126567534.jpg",
     "description": "",
     "content": "",
     "visible": true
