@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="css/articles.css">
   <link rel="stylesheet" href="css/modals.css">
   <link rel="stylesheet" href="css/articleSelection.css">
-
   <script defer src="js/articles.js"></script>
   <script defer src="js/header.js"></script>
 </head>
@@ -29,6 +28,7 @@
         <a href="https://api.whatsapp.com/send/?phone=79000880989&amp;text=...">
           <img src="images/wp.svg" alt="WhatsApp">
         </a>
+        <button id="editor-login-btn"><img src="images/logout.png" alt="Войти в редактор"></button>
       </div>
       <div class="burger" id="burger">
         <span></span>
@@ -58,10 +58,8 @@
       </div>
     </div>
   </header>
-  
   <main class="articles-main">
     <section class="articles-section">
-      <button id="editor-login-btn">Войти в редактор</button>
       <button id="add-article-btn" class="hidden">Добавить статью</button>
       <h1>Статьи</h1>
       <div class="articles-container" id="articles-container">
@@ -69,7 +67,6 @@
       <div id="pagination-container"></div>
     </section>
   </main>
-
   <div class="modal" id="login-modal">
     <div class="modal-content">
       <span class="close-modal" id="close-login-modal">&times;</span>

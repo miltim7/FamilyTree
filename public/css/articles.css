@@ -1,9 +1,7 @@
-/* Скрывающий класс */
 .hidden {
   display: none !important;
 }
 
-/* Основной контейнер страницы статей */
 .articles-main {
   background: #fff;
   padding: 40px 20px;
@@ -11,14 +9,12 @@
   min-height: 100vh;
 }
 
-/* Секция статей */
 .articles-section {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px 0;
 }
 
-/* Заголовок страницы */
 .articles-section h1 {
   text-align: center;
   font-size: 36px;
@@ -26,26 +22,6 @@
   margin-bottom: 20px;
 }
 
-/* Кнопка "Войти в редактор" */
-#editor-login-btn {
-  display: block;
-  margin: 0 0 20px 0;
-  background-color: #c0a282;
-  color: #fff;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: max-content;
-}
-
-#editor-login-btn:hover {
-  background-color: #a1886f;
-}
-
-/* Кнопка "Добавить статью" – скрыта по умолчанию */
 #add-article-btn {
   display: block;
   margin-bottom: 20px;
@@ -65,7 +41,6 @@
   background-color: #a1886f;
 }
 
-/* Контейнер для карточек статей */
 .articles-container {
   display: grid;
   grid-template-columns: repeat(4, 300px);
@@ -73,7 +48,6 @@
   justify-content: center;
 }
 
-/* Карточка статьи */
 .blog-card {
   width: 300px;
   background: #fff;
@@ -85,7 +59,6 @@
   cursor: pointer;
 }
 
-/* Изображение карточки – ограничено 150×150 px */
 .blog-card img {
   height: 150px;
   object-fit: cover;
@@ -93,7 +66,6 @@
   display: block;
 }
 
-/* Текстовые блоки */
 .blog-meta {
   font-size: 14px;
   color: #888;
@@ -117,7 +89,6 @@
   text-align: left;
 }
 
-/* Стили для кнопок-иконок (редактировать и удалить) */
 .article-btns {
   display: flex;
   gap: 20px;
@@ -145,7 +116,6 @@
   object-fit: contain;
 }
 
-/* Стили для строки загрузки изображения в модальном окне */
 .image-upload-row {
   display: flex;
   flex-direction: column;
@@ -163,7 +133,7 @@
   text-align: center;
 }
 
-.image-upload-container #article-image-placeholder {
+#article-image-placeholder {
   padding: 20px;
   color: #888;
 }
@@ -184,7 +154,6 @@
   cursor: pointer;
 }
 
-/* Модальное окно детального просмотра статьи */
 #article-detail-content {
   text-align: left;
 }
@@ -214,7 +183,6 @@
   line-height: 1.5;
 }
 
-/* Адаптивные стили */
 @media (max-width: 1024px) {
   .articles-container {
     grid-template-columns: repeat(2, 300px);
@@ -225,14 +193,22 @@
   .articles-container {
     grid-template-columns: repeat(1, 300px);
   }
-
   .articles-section h1 {
     font-size: 2rem;
   }
-
   #add-article-btn,
   #editor-login-btn {
     font-size: 0.9rem;
     padding: 6px 12px;
   }
+}
+
+#editor-login-btn {
+  display: inline-block !important;
+  background: transparent !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 5px !important;
+  box-shadow: none !important;
+  vertical-align: middle;
 }
