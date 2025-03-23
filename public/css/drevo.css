@@ -104,7 +104,7 @@
   transition: 0.5s;
   width: 350px;
   background: transparent;
-  color: #fff;
+  color: #303133;
 }
 
 .tree li a img {
@@ -126,7 +126,7 @@
 }
 
 .tree li a:hover {
-  background: #252525;
+  background: #d2d2d2;
 }
 
 .spouse-cards {
@@ -153,11 +153,11 @@
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  margin: 10px;
+  margin: 15px;
   position: sticky;
   top: 70px;
   z-index: 1;
-  background-color: #303133;
+  background-color: transparent;
 }
 
 .container-buttons button,
@@ -168,8 +168,10 @@
   cursor: pointer;
   margin-top: 10px;
   background: transparent;
-  color: #fff;
+  color: #303133;
+  background-color: #fff !important;
   transition: color 0.3s ease;
+  z-index: 1;
 }
 
 .navigation-controls button {

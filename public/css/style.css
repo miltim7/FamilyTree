@@ -16,7 +16,8 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
-  background: #303133;
+  background: transparent;
+  color: #303133;
   position: relative;
 }
 

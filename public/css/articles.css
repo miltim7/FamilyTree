@@ -1,4 +1,4 @@
-/* Скрывающий класс */ 
+/* Скрывающий класс */
 .hidden {
   display: none !important;
 }
@@ -40,6 +40,7 @@
   transition: background-color 0.3s ease;
   width: max-content;
 }
+
 #editor-login-btn:hover {
   background-color: #a1886f;
 }
@@ -59,6 +60,7 @@
   width: max-content;
   text-align: left;
 }
+
 #add-article-btn:hover {
   background-color: #a1886f;
 }
@@ -76,7 +78,7 @@
   width: 300px;
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -85,7 +87,6 @@
 
 /* Изображение карточки – ограничено 150×150 px */
 .blog-card img {
-  width: 150px;
   height: 150px;
   object-fit: cover;
   margin: 0 auto;
@@ -98,19 +99,22 @@
   color: #888;
   padding: 8px 16px;
 }
+
 .blog-title {
   font-size: 20px;
   font-weight: bold;
   color: #c0a282;
   padding: 0 16px;
   margin-bottom: 8px;
-  text-align: center;
+  text-align: left;
 }
+
 .blog-desc {
   font-size: 16px;
   color: #555;
   padding: 0 16px 16px;
   line-height: 1.4;
+  text-align: left;
 }
 
 /* Стили для кнопок-иконок (редактировать и удалить) */
@@ -120,6 +124,7 @@
   padding: 0 16px 16px;
   justify-content: center;
 }
+
 .article-btns button {
   width: 24px;
   height: 24px;
@@ -128,9 +133,11 @@
   cursor: pointer;
   transition: transform 0.3s ease;
 }
+
 .article-btns button:hover {
   transform: scale(1.1);
 }
+
 .edit-article-btn img,
 .delete-article-btn img {
   width: 100%;
@@ -144,6 +151,7 @@
   flex-direction: column;
   margin-bottom: 15px;
 }
+
 .image-upload-container {
   position: relative;
   width: 100%;
@@ -154,15 +162,18 @@
   margin-top: 8px;
   text-align: center;
 }
+
 .image-upload-container #article-image-placeholder {
   padding: 20px;
   color: #888;
 }
+
 .image-upload-container img {
   width: 100%;
   height: auto;
   display: block;
 }
+
 .image-upload-container input[type="file"] {
   position: absolute;
   top: 0;
@@ -175,23 +186,27 @@
 
 /* Модальное окно детального просмотра статьи */
 #article-detail-content {
-  text-align: center;
+  text-align: left;
 }
+
 #article-detail-content img {
   max-width: 100%;
   height: auto;
   margin-bottom: 20px;
 }
+
 #article-detail-content h2 {
   font-size: 28px;
   color: #c0a282;
   margin-bottom: 10px;
 }
+
 #article-detail-content .blog-meta {
   font-size: 14px;
   color: #888;
   margin-bottom: 10px;
 }
+
 #article-detail-content p {
   font-size: 16px;
   color: #555;
@@ -205,14 +220,18 @@
     grid-template-columns: repeat(2, 300px);
   }
 }
+
 @media (max-width: 768px) {
   .articles-container {
     grid-template-columns: repeat(1, 300px);
   }
+
   .articles-section h1 {
     font-size: 2rem;
   }
-  #add-article-btn, #editor-login-btn {
+
+  #add-article-btn,
+  #editor-login-btn {
     font-size: 0.9rem;
     padding: 6px 12px;
   }

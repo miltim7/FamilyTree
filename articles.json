@@ -1,58 +1,26 @@
 [
   {
     "id": 1,
-    "title": "Статья 1",
-    "image": "/images/articles/1740836561967.jpeg",
-    "description": "",
-    "content": "sdc",
+    "title": "Тайны древних свитков",
+    "image": "/images/articles/default_article.jpg",
+    "description": "Это пример описания статьи. Здесь размещается краткий обзор темы, представленной в статье.",
+    "content": "Полный текст статьи: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac leo nunc. Vestibulum et mauris vel ante finibus maximus.",
     "visible": true
   },
   {
     "id": 2,
-    "title": "Статья 2",
-    "image": "/images/articles/1740836838453.jpeg",
-    "description": "",
-    "content": "",
+    "title": "История старинных книг",
+    "image": "/images/articles/default_article.jpg",
+    "description": "Краткое описание статьи: Здесь вы найдете историю старинных книг, их ценность и уникальность.",
+    "content": "Детальное содержание статьи: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.",
     "visible": true
   },
   {
     "id": 3,
-    "title": "Статья 3",
-    "image": "/images/articles/1740836546636.jpeg",
-    "description": "Описание",
-    "content": "",
-    "visible": true
-  },
-  {
-    "id": 4,
-    "title": "Статья 4",
-    "image": "/images/articles/1742126513389.jpg",
-    "description": "",
-    "content": "",
-    "visible": true
-  },
-  {
-    "id": 5,
-    "title": "Статья 5",
-    "image": "/images/articles/1742126532315.jpeg",
-    "description": "",
-    "content": "",
-    "visible": true
-  },
-  {
-    "id": 6,
-    "title": "Статья 6",
-    "image": "/images/articles/1742126547774.jpeg",
-    "description": "",
-    "content": "",
-    "visible": true
-  },
-  {
-    "id": 7,
-    "title": "История любви",
-    "image": "/images/articles/1742126567534.jpg",
-    "description": "",
-    "content": "",
+    "title": "Путешествие во времени",
+    "image": "/images/articles/default_article.jpg",
+    "description": "Описание статьи: В этой статье рассказывается о теориях путешествия во времени и их влиянии на наше восприятие истории.",
+    "content": "Основной текст статьи: Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
     "visible": true
   }
 ]
