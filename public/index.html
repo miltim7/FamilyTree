@@ -116,7 +116,7 @@
         <div class="info-row"><strong id="modal-father-label">Отец:</strong> <span id="modal-father"></span></div>
         <div class="info-row"><strong id="modal-mother-label">Мать:</strong> <span id="modal-mother"></span></div>
         <div class="info-row"><strong>Дети:</strong> <span id="modal-children"></span></div>
-        <div class="info-row"><strong>Статья:</strong> <span id="modal-article"></span></div>
+        <div class="info-row"><strong>Статьи:</strong> <span id="modal-article"></span></div>
       </div>
       <div class="modal-actions">
         <button id="edit-btn">Редактировать</button>
@@ -165,8 +165,9 @@
           <span id="selected-parent-text">Родитель не выбран</span>
         </div>
         <div class="form-row">
-          <button type="button" id="choose-article-btn">Выбрать статью</button>
-          <span id="selected-article-text">Статья не выбрана</span>
+          <label>Статьи:</label>
+          <div id="selected-articles-container">Нет статей</div>
+          <button type="button" id="add-article-person-btn">Добавить статью</button>
         </div>
         <div class="form-row">
           <button type="submit" id="submit-child-btn">Сохранить</button>
@@ -215,8 +216,9 @@
           <span id="selected-spouse-text">Супруг(а) не выбран</span>
         </div>
         <div class="form-row">
-          <button type="button" id="choose-article-spouse-btn">Выбрать статью</button>
-          <span id="selected-article-spouse-text">Статья не выбрана</span>
+          <label>Статьи:</label>
+          <div id="selected-article-spouse-container">Нет статей</div>
+          <button type="button" id="add-article-spouse-btn">Добавить статью</button>
         </div>
         <div class="form-row">
           <button type="submit" id="submit-spouse-btn">Сохранить</button>
@@ -245,6 +247,7 @@
       <span class="close-modal" id="close-article-selection-modal">&times;</span>
       <h2 style="margin-bottom: 20px;">Выберите статью</h2>
       <div id="article-selection-list"></div>
+      <button id="confirm-article-selection">Готово</button>
     </div>
   </div>
 </body>

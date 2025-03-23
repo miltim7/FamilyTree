@@ -1,6 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
-  
   let personIdCounter = 0;
   const personById = {};
   let isSelectingParent = false;
@@ -12,8 +10,13 @@ document.addEventListener("DOMContentLoaded", function () {
   let treeData = [];
   let scale = 1, translateX = 0, translateY = 0;
   const minScale = 0.3, maxScale = 2;
-  let selectedArticleId = null;
-  let selectedArticleSpouseId = null;
+  let selectedArticleIds = [];
+  let selectedArticleSpouseIds = [];
+  let allArticles = [];
+  fetch('/api/articles')
+    .then(response => response.json())
+    .then(data => { allArticles = data; })
+    .catch(err => console.error(err));
   function updateTransform() {
     const treeContainer = document.getElementById('tree-container');
     treeContainer.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
@@ -144,8 +147,21 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.querySelector('#modal-father').textContent = person.father || "";
     modal.querySelector('#modal-mother').textContent = person.mother || "";
     modal.querySelector('#modal-children').textContent = person.children && person.children.length ? person.children.map(child => child.name).join(', ') : "Нет данных";
-    if (person.articleId) {
-      modal.querySelector('#modal-article').innerHTML = `<a href="articles.html?id=${person.articleId}" target="_blank">Посмотреть статью</a>`;
+    if (!person.hasOwnProperty('articleIds')) {
+      if (person.hasOwnProperty('articleId') && person.articleId) {
+        person.articleIds = [person.articleId];
+      } else {
+        person.articleIds = [];
+      }
+    }
+    let articleIds = person.articleIds;
+    if (articleIds.length > 0) {
+      let links = articleIds.map(id => {
+        let art = allArticles.find(a => a.id === id);
+        let title = art ? art.title : id;
+        return `<a href="articles.html?id=${id}" target="_blank">${title}</a>`;
+      }).join('<br>');
+      modal.querySelector('#modal-article').innerHTML = `Статьи:<br>${links}`;
     } else {
       modal.querySelector('#modal-article').textContent = "Нет данных";
     }
@@ -159,6 +175,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     modal.classList.add('active');
   }
+  
+  
   function hideModal() {
     modal.classList.remove('active');
   }
@@ -207,6 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch('/api/articles')
       .then(response => response.json())
       .then(articles => {
+        allArticles = articles;
         articleSelectionList.innerHTML = "";
         articles.forEach(article => {
           const item = document.createElement('div');
@@ -215,15 +234,25 @@ document.addEventListener("DOMContentLoaded", function () {
           item.dataset.id = article.id;
           item.addEventListener('click', function () {
             if (articleSelectionModal.dataset.for === "child") {
-              selectedArticleId = article.id;
-              document.getElementById('selected-article-text').textContent = `Статья: ${article.title}`;
-              articleSelectionModal.classList.remove('active');
-              document.getElementById('add-child-modal').classList.add('active');
+              let idx = selectedArticleIds.indexOf(article.id);
+              if(idx === -1){
+                selectedArticleIds.push(article.id);
+                item.classList.add('selected');
+              } else {
+                selectedArticleIds.splice(idx,1);
+                item.classList.remove('selected');
+              }
+              updateSelectedArticlesDisplay("child");
             } else if (articleSelectionModal.dataset.for === "spouse") {
-              selectedArticleSpouseId = article.id;
-              document.getElementById('selected-article-spouse-text').textContent = `Статья: ${article.title}`;
-              articleSelectionModal.classList.remove('active');
-              document.getElementById('add-spouse-modal').classList.add('active');
+              let idx = selectedArticleSpouseIds.indexOf(article.id);
+              if(idx === -1){
+                selectedArticleSpouseIds.push(article.id);
+                item.classList.add('selected');
+              } else {
+                selectedArticleSpouseIds.splice(idx,1);
+                item.classList.remove('selected');
+              }
+              updateSelectedArticlesDisplay("spouse");
             }
           });
           articleSelectionList.appendChild(item);
@@ -232,17 +261,70 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch(err => console.error("Error loading articles for selection", err));
   }
-  document.getElementById('choose-article-btn').addEventListener('click', function () {
+  function updateSelectedArticlesDisplay(type) {
+    if(type === "child"){
+      const container = document.getElementById('selected-articles-container');
+      if(selectedArticleIds.length === 0){
+        container.textContent = "Нет статей";
+      } else {
+        container.innerHTML = "";
+        selectedArticleIds.forEach(id => {
+          let art = allArticles.find(a => a.id === id);
+          let title = art ? art.title : id;
+          const div = document.createElement('div');
+          div.innerHTML = `${title} <button type="button" data-id="${id}" class="del-article-btn">DEL</button>`;
+          container.appendChild(div);
+        });
+        container.querySelectorAll('.del-article-btn').forEach(btn => {
+          btn.addEventListener('click', function(){
+            const artId = parseInt(this.dataset.id);
+            selectedArticleIds = selectedArticleIds.filter(aid => aid !== artId);
+            updateSelectedArticlesDisplay("child");
+          });
+        });
+      }
+    } else if(type === "spouse"){
+      const container = document.getElementById('selected-article-spouse-container');
+      if(selectedArticleSpouseIds.length === 0){
+        container.textContent = "Нет статей";
+      } else {
+        container.innerHTML = "";
+        selectedArticleSpouseIds.forEach(id => {
+          let art = allArticles.find(a => a.id === id);
+          let title = art ? art.title : id;
+          const div = document.createElement('div');
+          div.innerHTML = `${title} <button type="button" data-id="${id}" class="del-article-btn">DEL</button>`;
+          container.appendChild(div);
+        });
+        container.querySelectorAll('.del-article-btn').forEach(btn => {
+          btn.addEventListener('click', function(){
+            const artId = parseInt(this.dataset.id);
+            selectedArticleSpouseIds = selectedArticleSpouseIds.filter(aid => aid !== artId);
+            updateSelectedArticlesDisplay("spouse");
+          });
+        });
+      }
+    }
+  }
+  document.getElementById('add-article-person-btn').addEventListener('click', function(){
     document.getElementById('add-child-modal').classList.remove('active');
     articleSelectionModal.dataset.for = "child";
     loadArticleSelection();
     articleSelectionModal.classList.add('active');
   });
-  document.getElementById('choose-article-spouse-btn').addEventListener('click', function () {
+  document.getElementById('add-article-spouse-btn').addEventListener('click', function(){
     document.getElementById('add-spouse-modal').classList.remove('active');
     articleSelectionModal.dataset.for = "spouse";
     loadArticleSelection();
     articleSelectionModal.classList.add('active');
+  });
+  document.getElementById('confirm-article-selection').addEventListener('click', function(){
+    articleSelectionModal.classList.remove('active');
+    if(articleSelectionModal.dataset.for === "child"){
+      document.getElementById('add-child-modal').classList.add('active');
+    } else if(articleSelectionModal.dataset.for === "spouse"){
+      document.getElementById('add-spouse-modal').classList.add('active');
+    }
   });
   closeArticleSelectionModal.addEventListener('click', function () {
     articleSelectionModal.classList.remove('active');
@@ -372,11 +454,11 @@ document.addEventListener("DOMContentLoaded", function () {
     submitChildBtn.textContent = "Сохранить";
     chooseParentBtn.style.display = "inline-block";
     chooseParentBtn.textContent = "Выбрать родителя";
-    document.getElementById('choose-article-btn').style.display = "inline-block";
-    document.getElementById('selected-article-text').textContent = "Статья не выбрана";
+    document.getElementById('add-article-person-btn').style.display = "inline-block";
+    selectedArticleIds = [];
+    updateSelectedArticlesDisplay("child");
     selectedParentId = null;
     selectedParentText.textContent = "Родитель не выбран";
-    selectedArticleId = null;
     document.querySelector('#add-child-modal h2').textContent = "Добавить ребенка";
     addChildModal.classList.add('active');
   });
@@ -425,8 +507,8 @@ document.addEventListener("DOMContentLoaded", function () {
       children: []
     };
     newChild.years = newChild.years.trim() ? newChild.years : "н/в";
-    if (selectedArticleId) {
-      newChild.articleId = selectedArticleId;
+    if (selectedArticleIds.length > 0) {
+      newChild.articleIds = selectedArticleIds;
     }
     if (!isEditing) {
       if (selectedParentId && personById[selectedParentId]) {
@@ -459,13 +541,13 @@ document.addEventListener("DOMContentLoaded", function () {
       person.profession = newChild.profession;
       person.birthPlace = newChild.birthPlace;
       person.bio = newChild.bio;
-      person.articleId = newChild.articleId;
+      person.articleIds = selectedArticleIds;
     }
     addChildForm.reset();
     selectedParentId = null;
     selectedParentText.textContent = "Родитель не выбран";
-    selectedArticleId = null;
-    document.getElementById('selected-article-text').textContent = "Статья не выбрана";
+    selectedArticleIds = [];
+    updateSelectedArticlesDisplay("child");
     addChildModal.classList.remove('active');
     personIdCounter = 0;
     Object.keys(personById).forEach(key => delete personById[key]);
@@ -487,8 +569,9 @@ document.addEventListener("DOMContentLoaded", function () {
     addSpouseForm.reset();
     submitSpouseBtn.textContent = "Сохранить";
     chooseSpouseBtn.style.display = "inline-block";
-    document.getElementById('choose-article-spouse-btn').style.display = "inline-block";
-    document.getElementById('selected-article-spouse-text').textContent = "Статья не выбрана";
+    document.getElementById('add-article-spouse-btn').style.display = "inline-block";
+    selectedArticleSpouseIds = [];
+    updateSelectedArticlesDisplay("spouse");
     document.querySelector('#add-spouse-modal h2').textContent = "Добавить супруга(-у)";
     addSpouseModal.classList.add('active');
   });
@@ -535,8 +618,8 @@ document.addEventListener("DOMContentLoaded", function () {
       isSpouse: true
     };
     spouseData.years = spouseData.years.trim() ? spouseData.years : "н/в";
-    if (selectedArticleSpouseId) {
-      spouseData.articleId = selectedArticleSpouseId;
+    if (selectedArticleSpouseIds.length > 0) {
+      spouseData.articleIds = selectedArticleSpouseIds;
     }
     if (isEditing && selectedSpouseId) {
       let parentObj = null;
@@ -564,7 +647,8 @@ document.addEventListener("DOMContentLoaded", function () {
     addSpouseForm.reset();
     selectedSpouseId = null;
     selectedSpouseText.textContent = "Супруг(а) не выбран";
-    document.getElementById('selected-article-spouse-text').textContent = "Статья не выбрана";
+    selectedArticleSpouseIds = [];
+    updateSelectedArticlesDisplay("spouse");
     addSpouseModal.classList.remove('active');
     personIdCounter = 0;
     Object.keys(personById).forEach(key => delete personById[key]);
@@ -630,11 +714,12 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById('new-spouse-profession').value = person.profession;
           document.getElementById('new-spouse-birthPlace').value = person.birthPlace;
           document.getElementById('new-spouse-bio').value = person.bio;
-          if (person.articleId) {
-            selectedArticleSpouseId = person.articleId;
-            document.getElementById('selected-article-spouse-text').textContent = `Статья ID: ${person.articleId}`;
+          if (person.articleIds && person.articleIds.length > 0) {
+            selectedArticleSpouseIds = [...person.articleIds];
+            updateSelectedArticlesDisplay("spouse");
           } else {
-            document.getElementById('selected-article-spouse-text').textContent = "Статья не выбрана";
+            selectedArticleSpouseIds = [];
+            updateSelectedArticlesDisplay("spouse");
           }
           isEditing = true;
           selectedSpouseId = currentPersonId;
@@ -650,11 +735,12 @@ document.addEventListener("DOMContentLoaded", function () {
           document.getElementById('new-profession').value = person.profession;
           document.getElementById('new-birthPlace').value = person.birthPlace;
           document.getElementById('new-bio').value = person.bio;
-          if (person.articleId) {
-            selectedArticleId = person.articleId;
-            document.getElementById('selected-article-text').textContent = `Статья ID: ${person.articleId}`;
+          if (person.articleIds && person.articleIds.length > 0) {
+            selectedArticleIds = [...person.articleIds];
+            updateSelectedArticlesDisplay("child");
           } else {
-            document.getElementById('selected-article-text').textContent = "Статья не выбрана";
+            selectedArticleIds = [];
+            updateSelectedArticlesDisplay("child");
           }
           isEditing = true;
           addChildModal.classList.add('active');
