@@ -112,7 +112,11 @@
         ],
         "id": 1,
         "articleId": 1,
-        "articleIds": []
+        "articleIds": [
+          1,
+          3,
+          2
+        ]
       },
       {
         "img": "images/default_female.jpg",

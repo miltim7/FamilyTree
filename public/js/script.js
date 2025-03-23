@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
   let personIdCounter = 0;
   const personById = {};
   let isSelectingParent = false;
@@ -146,6 +147,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     modal.querySelector('#modal-father').textContent = person.father || "";
     modal.querySelector('#modal-mother').textContent = person.mother || "";
+    if (!person.isSpouse && person.spouse) {
+      modal.querySelector('#modal-spouse').textContent = person.spouse.name;
+    } else {
+      modal.querySelector('#modal-spouse').textContent = "Нет данных";
+    }
     modal.querySelector('#modal-children').textContent = person.children && person.children.length ? person.children.map(child => child.name).join(', ') : "Нет данных";
     if (!person.hasOwnProperty('articleIds')) {
       if (person.hasOwnProperty('articleId') && person.articleId) {
@@ -161,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let title = art ? art.title : id;
         return `<a href="articles.html?id=${id}" target="_blank">${title}</a>`;
       }).join('<br>');
-      modal.querySelector('#modal-article').innerHTML = `Статьи:<br>${links}`;
+      modal.querySelector('#modal-article').innerHTML = `<br/>${links}`;
     } else {
       modal.querySelector('#modal-article').textContent = "Нет данных";
     }
@@ -175,8 +181,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     modal.classList.add('active');
   }
-  
-  
   function hideModal() {
     modal.classList.remove('active');
   }
