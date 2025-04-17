@@ -6,7 +6,7 @@
 }
 
 #tree-container-wrapper {
-  width: 10000px;
+  width: 50000px;
   height: calc(100vh - 100px);
   overflow: hidden;
   cursor: grab;
