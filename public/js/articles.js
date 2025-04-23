@@ -124,17 +124,19 @@ document.addEventListener("DOMContentLoaded", function(){
       return;
     }
     paginationContainer.style.display = "block";
-    for(let i=1; i<=totalPages; i++){
+    for(let i = 1; i <= totalPages; i++){
       const pageBtn = document.createElement("button");
       pageBtn.textContent = i;
       if(i === currentPage) pageBtn.disabled = true;
       pageBtn.addEventListener("click", function(){
         currentPage = i;
         renderArticles(articles);
+        renderPaginationControls(articles);
       });
       paginationContainer.appendChild(pageBtn);
     }
   }
+  
   function openArticleDetailModal(article){
     articleDetailContent.innerHTML = `
       <img src="${article.image ? article.image : 'images/default.jpg'}" alt="${article.title}">

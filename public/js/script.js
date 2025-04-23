@@ -92,10 +92,23 @@ document.addEventListener("DOMContentLoaded", function () {
         const treeRoot = document.getElementById("tree-root");
         treeRoot.innerHTML = generateTree(treeData);
         setTimeout(() => {
-          translateX = 0;
-          translateY = 0;
+          const viewport  = document.querySelector('.tree-scroll-wrapper');
+          const container = document.getElementById('tree-container');
+          const rootCard  = container.querySelector('.person-card[data-id="0"]');
+          if (viewport && rootCard) {
+            const vw = viewport.clientWidth;
+            const vh = viewport.clientHeight;
+            const cx = rootCard.offsetLeft + rootCard.offsetWidth  / 2;
+            const cy = rootCard.offsetTop  + rootCard.offsetHeight / 2;
+            translateX =  vw/2 - cx;
+            translateY =  vh/2 - cy;
+          } else {
+            translateX = 0;
+            translateY = 0;
+          }
           updateTransform();
         }, 100);
+                
       })
       .catch(error => console.error("Ошибка загрузки данных:", error));
   }
