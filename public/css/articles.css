@@ -159,6 +159,8 @@
 }
 
 #article-detail-content img {
+  max-width: 100%;
+  height: auto;
   display: block;
   margin: 0 auto 20px;
 }
@@ -192,9 +194,11 @@
   .articles-container {
     grid-template-columns: repeat(1, 300px);
   }
+
   .articles-section h1 {
     font-size: 2rem;
   }
+
   #add-article-btn,
   #editor-login-btn {
     font-size: 0.9rem;

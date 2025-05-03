@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function () {
   let isAdmin = false;
   let currentArticleImageUrl = "";
   const articlesContainer = document.getElementById("articles-container");
@@ -26,8 +26,8 @@ document.addEventListener("DOMContentLoaded", function(){
   const closeArticleDetailModal = document.getElementById("close-article-detail-modal");
   const articleDetailContent = document.getElementById("article-detail-content");
   let currentPage = 1;
-  const articlesPerPage = 9;
-  function loadArticles(){
+  const articlesPerPage = 12;
+  function loadArticles() {
     fetch('/api/articles')
       .then(response => response.json())
       .then(data => {
@@ -38,9 +38,9 @@ document.addEventListener("DOMContentLoaded", function(){
       })
       .catch(err => console.error("Error loading articles", err));
   }
-  function renderArticles(articles){
+  function renderArticles(articles) {
     articlesContainer.innerHTML = "";
-    if(articles.length === 0){
+    if (articles.length === 0) {
       articlesContainer.innerHTML = "<p>Нет статей</p>";
       return;
     }
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function(){
     pageArticles.forEach(article => {
       const card = document.createElement("div");
       card.classList.add("blog-card");
-      const btnsHTML = isAdmin 
+      const btnsHTML = isAdmin
         ? `<div class="article-btns">
              <button class="edit-article-btn" data-id="${article.id}"><img src="images/pencil.png" alt="Редактировать"/></button>
              <button class="delete-article-btn" data-id="${article.id}"><img src="images/delete.png" alt="Удалить"/></button>
@@ -63,17 +63,17 @@ document.addEventListener("DOMContentLoaded", function(){
         <div class="blog-desc">${article.description ? article.description : ""}</div>
         ${btnsHTML}
       `;
-      card.addEventListener('click', function(e){
-        if(e.target.closest('.edit-article-btn') || e.target.closest('.delete-article-btn')){
+      card.addEventListener("click", function(e) {
+        if (e.target.closest('.edit-article-btn') || e.target.closest('.delete-article-btn')) {
           return;
         }
         openArticleDetailModal(article);
       });
       articlesContainer.appendChild(card);
     });
-    if(isAdmin){
+    if (isAdmin) {
       document.querySelectorAll(".edit-article-btn").forEach(btn => {
-        btn.addEventListener("click", function(e){
+        btn.addEventListener("click", function (e) {
           e.stopPropagation();
           const id = this.dataset.id;
           fetch(`/api/articles?id=${id}`)
@@ -83,18 +83,18 @@ document.addEventListener("DOMContentLoaded", function(){
               articleTitleInput.value = article.title;
               articleDescriptionInput.value = article.description;
               articleContentInput.value = article.content;
-              if(article.image){
+              if (article.image) {
                 currentArticleImageUrl = article.image;
                 imagePreview.src = article.image;
                 imagePreview.style.display = "block";
                 imagePreview.style.maxWidth = "150px";
                 imagePreview.style.maxHeight = "150px";
-                if(imagePlaceholder) imagePlaceholder.style.display = "none";
+                if (imagePlaceholder) imagePlaceholder.style.display = "none";
               } else {
                 currentArticleImageUrl = "";
                 imagePreview.src = "";
                 imagePreview.style.display = "none";
-                if(imagePlaceholder) imagePlaceholder.style.display = "block";
+                if (imagePlaceholder) imagePlaceholder.style.display = "block";
               }
               articleModalTitle.textContent = "Редактировать статью";
               articleVisibleInput.checked = article.visible !== false;
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function(){
         });
       });
       document.querySelectorAll(".delete-article-btn").forEach(btn => {
-        btn.addEventListener("click", function(e){
+        btn.addEventListener("click", function (e) {
           e.stopPropagation();
           const id = this.dataset.id;
           fetch(`/api/articles/${id}`, { method: 'DELETE' })
@@ -116,19 +116,19 @@ document.addEventListener("DOMContentLoaded", function(){
       });
     }
   }
-  function renderPaginationControls(articles){
+  function renderPaginationControls(articles) {
     paginationContainer.innerHTML = "";
     const totalPages = Math.ceil(articles.length / articlesPerPage);
-    if(totalPages <= 1){
+    if (totalPages <= 1) {
       paginationContainer.style.display = "none";
       return;
     }
     paginationContainer.style.display = "block";
-    for(let i = 1; i <= totalPages; i++){
+    for (let i = 1; i <= totalPages; i++) {
       const pageBtn = document.createElement("button");
       pageBtn.textContent = i;
-      if(i === currentPage) pageBtn.disabled = true;
-      pageBtn.addEventListener("click", function(){
+      if (i === currentPage) pageBtn.disabled = true;
+      pageBtn.addEventListener("click", function () {
         currentPage = i;
         renderArticles(articles);
         renderPaginationControls(articles);
@@ -136,8 +136,8 @@ document.addEventListener("DOMContentLoaded", function(){
       paginationContainer.appendChild(pageBtn);
     }
   }
-  
-  function openArticleDetailModal(article){
+
+  function openArticleDetailModal(article) {
     articleDetailContent.innerHTML = `
       <img src="${article.image ? article.image : 'images/default.jpg'}" alt="${article.title}">
       <h2>${article.title}</h2>
@@ -147,28 +147,28 @@ document.addEventListener("DOMContentLoaded", function(){
     `;
     detailModal.classList.add("active");
   }
-  if(closeArticleDetailModal){
-    closeArticleDetailModal.addEventListener("click", function(){
+  if (closeArticleDetailModal) {
+    closeArticleDetailModal.addEventListener("click", function () {
       detailModal.classList.remove("active");
     });
   }
-  editorLoginBtn.addEventListener("click", function(){
+  editorLoginBtn.addEventListener("click", function () {
     loginModal.classList.add("active");
   });
-  document.getElementById("close-login-modal").addEventListener("click", function(){
+  document.getElementById("close-login-modal").addEventListener("click", function () {
     loginModal.classList.remove("active");
     loginError.style.display = "none";
   });
-  loginForm.addEventListener("submit", function(e){
+  loginForm.addEventListener("submit", function (e) {
     e.preventDefault();
     const password = loginPasswordInput.value;
     fetch('/api/verifyPassword', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password })
     }).then(response => response.json())
       .then(data => {
-        if(data.success){
+        if (data.success) {
           isAdmin = true;
           loginModal.classList.remove("active");
           editorLoginBtn.classList.add("hidden");
@@ -183,28 +183,28 @@ document.addEventListener("DOMContentLoaded", function(){
         loginError.style.display = "block";
       });
   });
-  addArticleBtn.addEventListener("click", function(){
+  addArticleBtn.addEventListener("click", function () {
     articleIdInput.value = "";
     articleForm.reset();
     currentArticleImageUrl = "";
-    if(imagePreview){
+    if (imagePreview) {
       imagePreview.src = "";
       imagePreview.style.display = "none";
     }
-    if(imagePlaceholder){
+    if (imagePlaceholder) {
       imagePlaceholder.style.display = "block";
     }
     articleModalTitle.textContent = "Добавить статью";
     articleVisibleInput.checked = true;
     articleModal.classList.add("active");
   });
-  closeArticleModal.addEventListener("click", function(){
+  closeArticleModal.addEventListener("click", function () {
     articleModal.classList.remove("active");
   });
-  articleForm.addEventListener("submit", function(e){
+  articleForm.addEventListener("submit", function (e) {
     e.preventDefault();
     const uploadFile = articleImageInput.files[0];
-    function submitArticle(imageUrl){
+    function submitArticle(imageUrl) {
       const articleData = {
         id: articleIdInput.value,
         title: articleTitleInput.value,
@@ -215,10 +215,10 @@ document.addEventListener("DOMContentLoaded", function(){
       };
       let method = articleData.id ? 'PUT' : 'POST';
       let url = '/api/articles';
-      if(articleData.id) url += '/' + articleData.id;
+      if (articleData.id) url += '/' + articleData.id;
       fetch(url, {
         method: method,
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(articleData)
       }).then(response => response.json())
         .then(data => {
@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function(){
         })
         .catch(err => console.error("Error saving article", err));
     }
-    if(uploadFile){
+    if (uploadFile) {
       const formData = new FormData();
       formData.append('articleImage', uploadFile);
       fetch('/api/uploadArticleImage', {
@@ -235,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function(){
         body: formData
       }).then(response => response.json())
         .then(data => {
-          if(data.success){
+          if (data.success) {
             submitArticle(data.imageUrl);
           } else {
             submitArticle("");
@@ -249,52 +249,65 @@ document.addEventListener("DOMContentLoaded", function(){
       submitArticle("");
     }
   });
+  // — переменные для модалки
+  const closeDetail = document.getElementById("close-article-detail-modal");
+
+  // закрытие по кресту
+  closeDetail.addEventListener("click", () => {
+    detailModal.classList.remove("active");
+  });
+  // закрытие кликом по затемнённой области
+  detailModal.addEventListener("click", e => {
+    if (e.target === detailModal) detailModal.classList.remove("active");
+  });
+
+
   loadArticles();
-  articleImageInput.addEventListener('change', function(){
+  articleImageInput.addEventListener('change', function () {
     const file = this.files[0];
-    if(file){
+    if (file) {
       const reader = new FileReader();
-      reader.onload = function(e){
-        if(imagePreview){
+      reader.onload = function (e) {
+        if (imagePreview) {
           imagePreview.src = e.target.result;
           imagePreview.style.display = "block";
           imagePreview.style.maxWidth = "150px";
           imagePreview.style.maxHeight = "150px";
         }
-        if(imagePlaceholder) imagePlaceholder.style.display = "none";
+        if (imagePlaceholder) imagePlaceholder.style.display = "none";
       }
       reader.readAsDataURL(file);
     } else {
-      if(imagePreview) imagePreview.style.display = "none";
-      if(imagePlaceholder) imagePlaceholder.style.display = "block";
+      if (imagePreview) imagePreview.style.display = "none";
+      if (imagePlaceholder) imagePlaceholder.style.display = "block";
     }
   });
   const imageUploadContainer = document.querySelector(".image-upload-container");
-  if(imageUploadContainer){
-    imageUploadContainer.addEventListener('dragover', function(e){
+  if (imageUploadContainer) {
+    imageUploadContainer.addEventListener('dragover', function (e) {
       e.preventDefault();
       imageUploadContainer.classList.add('dragover');
     });
-    imageUploadContainer.addEventListener('dragleave', function(e){
+    imageUploadContainer.addEventListener('dragleave', function (e) {
       e.preventDefault();
       imageUploadContainer.classList.remove('dragover');
     });
-    imageUploadContainer.addEventListener('drop', function(e){
+    imageUploadContainer.addEventListener('drop', function (e) {
       e.preventDefault();
       imageUploadContainer.classList.remove('dragover');
       const files = e.dataTransfer.files;
-      if(files && files.length > 0){
+      if (files && files.length > 0) {
         articleImageInput.files = files;
         const file = files[0];
         const reader = new FileReader();
-        reader.onload = function(e){
-          if(imagePreview){
+        reader.onload = function (e) {
+          if (imagePreview) {
             imagePreview.src = e.target.result;
             imagePreview.style.display = "block";
             imagePreview.style.maxWidth = "150px";
             imagePreview.style.maxHeight = "150px";
           }
-          if(imagePlaceholder) imagePlaceholder.style.display = "none";
+          if (imagePlaceholder) imagePlaceholder.style.display = "none";
         }
         reader.readAsDataURL(file);
       }

@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentPersonId = null;
   let isEditing = false;
   let treeData = [];
-  let scale = 1, translateX = 0, translateY = 0;
   const minScale = 0.3, maxScale = 2;
+  let scale = minScale, translateX = 0, translateY = 0;
   let selectedArticleIds = [];
   let selectedArticleSpouseIds = [];
   let allArticles = [];
@@ -82,37 +82,34 @@ document.addEventListener("DOMContentLoaded", function () {
     html += '</ul>';
     return html;
   }
+
   function loadTreeData() {
-    fetch("api/treeData")
-      .then(response => response.json())
+    fetch("/api/treeData")
+      .then(res => res.json())
       .then(data => {
         treeData = data;
         personIdCounter = 0;
-        Object.keys(personById).forEach(key => delete personById[key]);
-        const treeRoot = document.getElementById("tree-root");
-        treeRoot.innerHTML = generateTree(treeData);
-        setTimeout(() => {
-          const viewport  = document.querySelector('.tree-scroll-wrapper');
-          const container = document.getElementById('tree-container');
-          const rootCard  = container.querySelector('.person-card[data-id="0"]');
-          if (viewport && rootCard) {
-            const vw = viewport.clientWidth;
-            const vh = viewport.clientHeight;
-            const cx = rootCard.offsetLeft + rootCard.offsetWidth  / 2;
-            const cy = rootCard.offsetTop  + rootCard.offsetHeight / 2;
-            translateX =  vw/2 - cx;
-            translateY =  vh/2 - cy;
-          } else {
-            translateX = 0;
-            translateY = 0;
-          }
+        Object.keys(personById).forEach(k => delete personById[k]);
+        document.getElementById("tree-root").innerHTML = generateTree(treeData);
+  
+        scale = minScale;
+        translateX = 0;
+        translateY = 0;
+        updateTransform();
+  
+        requestAnimationFrame(() => {
+          translateX = -document.documentElement.clientWidth - 175;
+          translateY = 0;
+  
           updateTransform();
-        }, 100);
-                
+        });
       })
-      .catch(error => console.error("Ошибка загрузки данных:", error));
+      .catch(err => console.error("Ошибка загрузки дерева:", err));
   }
+  
   loadTreeData();
+  
+
   const treeRoot = document.getElementById("tree-root");
   treeRoot.addEventListener('click', function (e) {
     const card = e.target.closest('.person-card');

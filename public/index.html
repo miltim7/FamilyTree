@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,12 +18,13 @@
   <script defer src="js/header.js"></script>
   <script defer src="js/blogHome.js"></script>
 </head>
+
 <body>
   <header class="site-header">
     <div class="header-container">
       <a class="logo" href="/">Шуховцевы-Шеховцевы</a>
       <nav class="nav-links">
-        <a href="#container">Семейное древо</a>
+        <a href="/#container">Семейное древо</a>
         <a href="articles.html">Статьи</a>
       </nav>
       <div class="contacts">
@@ -44,7 +46,7 @@
       <div class="mobile-menu-content">
         <a class="logo" href="/">Шуховцевы-Шеховцевы</a>
         <nav class="mobile-nav-links">
-          <a href="#container">Семейное древо</a>
+          <a href="/#container">Семейное древо</a>
           <a href="articles.html">Статьи</a>
         </nav>
         <div class="contacts">
@@ -54,17 +56,20 @@
           </div>
           <div>
             <a target="_blank" href="https://vk.com/"><img class="social-icon" src="images/vk.svg" alt="VK"></a>
-            <a target="_blank" href="https://api.whatsapp.com/send/?phone=79000880989&amp;text=..."><img class="social-icon" src="images/wp.svg" alt="WhatsApp"></a>
+            <a target="_blank" href="https://api.whatsapp.com/send/?phone=79000880989&amp;text=..."><img
+                class="social-icon" src="images/wp.svg" alt="WhatsApp"></a>
           </div>
         </div>
       </div>
     </div>
   </header>
+
   <section class="hero">
     <div class="hero-blur">
       <div class="hero-content">
         <h1>Добро пожаловать на сайт, посвященный родословной семьи Шуховцевых!</h1>
-        <p>Здесь вы сможете узнать о богатой истории и наследии семьи, исследовать генеалогическое древо и прочитать статьи о предках. История семьи Шуховцевых — это наша общая память!</p>
+        <p>Здесь вы сможете узнать о богатой истории и наследии семьи, исследовать генеалогическое древо и прочитать
+          статьи о предках. История семьи Шуховцевых — это наша общая память!</p>
         <div class="hero-buttons">
           <a href="#container" class="hero-btn">Семейное Древо</a>
           <a href="articles.html" class="hero-btn second">Статьи</a>
@@ -72,6 +77,7 @@
       </div>
     </div>
   </section>
+
   <section id="container" class="container-section">
     <div class="container-controls">
       <div class="container-buttons">
@@ -97,10 +103,17 @@
       </div>
     </div>
   </section>
+
   <section id="blog" class="blog-section">
     <div class="blog-container"></div>
   </section>
-  
+
+  <div class="modal" id="article-detail-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-article-detail-modal">&times;</span>
+      <div id="article-detail-content"></div>
+    </div>
+  </div>
   <div class="modal" id="person-modal">
     <div class="modal-content">
       <span class="close-modal" id="close-modal">&times;</span>
@@ -253,4 +266,5 @@
     </div>
   </div>
 </body>
+
 </html>
